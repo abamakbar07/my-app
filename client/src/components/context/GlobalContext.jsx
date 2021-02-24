@@ -11,17 +11,13 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "LOGIN_SUKSES":
-      localStorage.setItem("token", action.payload.token);
-
+    case "TEST_ADMIN":
       return {
         ...state,
-        isLogin: true,
+        isAdmin: true,
         user: {
-          email: action.payload.email,
-          fullName: action.payload.fullName,
-          role: action.payload.role,
-          avatar: action.payload.avatar,
+          name: action.payload.name,
+          email: action.payload.email
         },
         loading: false,
       };
@@ -29,36 +25,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLogin: true,
-        user: {
-          email: action.payload.email,
-          fullName: action.payload.fullName,
-          role: action.payload.role,
-          avatar: action.payload.avatar,
-        },
         loading: false,
-      };
-    case "ADMIN":
-      localStorage.setItem("token", action.payload.token);
-
-      return {
-        ...state,
-        isAdmin: true,
-        user: {
-          emaill: action.payload.email,
-          fullName: action.payload.fullName,
-          role: action.payload.role,
-        },
-      };
-    case "ADMIN_LOADED":
-      return {
-        ...state,
-        isAdmin: true,
-        user: {
-          emaill: action.payload.email,
-          fullName: action.payload.fullName,
-          role: action.payload.role,
-        },
-      };
+      }
     case "AUTH_ERROR":
     case "LOGOUT":
       localStorage.removeItem("token");
