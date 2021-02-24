@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import React from "react"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import './App.css';
 
-function App() {
+import { PrivateRoute } from './components/routes/PrivateRoute'
+import { AdminRoute } from './components/routes/AdminRoute'
+
+import Dashboard from './pages/Dashboard/Dashboard'
+import BookDetail from './pages/PrivatePage/BookDetail/BookDetail'
+import Profile from './pages/PrivatePage/Profile/Profile'
+import Cart from "./pages/PrivatePage/Cart/Cart";
+import Transaction from "./pages/AdminPage/Transaction/Transaction";
+import AddBook from "./pages/AdminPage/AddBook/AddBook";
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={Dashboard} />
+          <PrivateRoute path="/home" exact component={Dashboard} />
+          <PrivateRoute path="/profile" exact component={Profile} />
+          <PrivateRoute path="/book-detail" exact component={BookDetail} />
+          <PrivateRoute path="/cart" exact component={Cart} />
+          <AdminRoute path="/admin/transaction" exact component={Transaction} />
+          <AdminRoute path="/admin/add-book" exact component={AddBook} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
