@@ -2,16 +2,21 @@ import React, { useContext, useEffect } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { PrivateRoute } from './components/routes/PrivateRoute'
 import { AdminRoute } from './components/routes/AdminRoute'
 import { API, setAuthToken } from './config/api'
 import { AppContext } from './components/context/GlobalContext'
 
-import Dashboard from './pages/Dashboard/Dashboard'
+import LandingPage from "./pages/LandingPage/LandingPage";
+import NavigationBar from "./components/NavigationBar";
+
+import Dashboard from "./pages/PrivatePage/Dashboard/Dashboard";
 import BookDetail from './pages/PrivatePage/BookDetail/BookDetail'
-import Profile from './pages/PrivatePage/Profile/Profile'
 import Cart from "./pages/PrivatePage/Cart/Cart";
+import Profile from './pages/PrivatePage/Profile/Profile'
+
 import Transaction from "./pages/AdminPage/Transaction/Transaction";
 import AddBook from "./pages/AdminPage/AddBook/AddBook";
 
@@ -43,7 +48,7 @@ const App = () => {
       });
     }
   };
-  
+
   useEffect(() => {
     checkUser();
   }, []);
@@ -51,9 +56,10 @@ const App = () => {
   return (
     <Router>
       <div className="App">
+        <NavigationBar isAdmin={state.isAdmin} isLogin={state.isLogin} />
         <Switch>
-          <Route path="/" exact component={Dashboard} />
-          <PrivateRoute path="/home" exact component={Dashboard} />
+          <Route path="/" exact component={LandingPage} />
+          <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <PrivateRoute path="/profile" exact component={Profile} />
           <PrivateRoute path="/book-detail" exact component={BookDetail} />
           <PrivateRoute path="/cart" exact component={Cart} />

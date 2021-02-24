@@ -4,25 +4,34 @@ import { useHistory } from "react-router-dom";
 
 import { AppContext } from '../../components/context/GlobalContext'
 
-const Dashboard = () => {
+const LandingPage = () => {
    const history = useHistory()
    const [state, dispatch] = useContext(AppContext)
+
+   const result = {
+      name: "nama",
+      email: "email@gmail.com"
+   }
    
    const admin = () => {
-      console.log("aw")
-      const result = {
-         name: "nama",
-         email: "email@gmail.com"
-      }
-      console.log(result)
       dispatch({
-         type: "TEST_ADMIN",
+         type: "ADMIN_LOGIN",
          payload: result
       });
-      history.push("/admin/transaction");
+      console.log("ADMIN LOGIN!")
+      console.log(result)
+      return history.push("/admin/transaction");
    }
 
-   console.log(state.isAdmin)
+   const user = () => {
+      dispatch({
+         type: "USER_LOGIN",
+         payload: result
+      });
+      console.log("USER LOGIN!")
+      console.log(result)
+      return history.push("/dashboard");
+   }
 
    return (
       <div className="Container">
@@ -30,7 +39,7 @@ const Dashboard = () => {
             <Button onClick={() => admin()}>
                Admin Route
             </Button>
-            <Button>
+            <Button onClick={() => user()}>
                Private Route
             </Button>
          </Row>
@@ -38,4 +47,4 @@ const Dashboard = () => {
    )
 }
 
-export default Dashboard
+export default LandingPage

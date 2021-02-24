@@ -2,9 +2,9 @@ import React, {useContext} from 'react'
 import {Button} from 'react-bootstrap'
 import { AppContext } from '../../../components/context/GlobalContext'
 
-const Transaction = () => {
+const Dashboard = () => {
    const [state, dispatch] = useContext(AppContext)
-
+   console.log("iam in dashboard page!")
    const logout = () => {
       dispatch({
          type: "LOGOUT"
@@ -16,9 +16,9 @@ const Transaction = () => {
          <Button className="d-block" onClick={() => logout()}>
             Logout
          </Button>
-         Admin Transaction
+         Dashboard
       </div>
    )
 }
 
-export default Transaction
+export default Dashboard

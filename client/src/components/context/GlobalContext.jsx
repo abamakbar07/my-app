@@ -11,28 +11,35 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "TEST_ADMIN":
+    case "USER_LOGIN":
       return {
         ...state,
-        isAdmin: true,
+        isAdmin: false,
+        isUser: true,
         user: {
           name: action.payload.name,
           email: action.payload.email
         },
         loading: false,
       };
-    case "USER_LOADED":
+    case "ADMIN_LOGIN":
       return {
         ...state,
-        isLogin: true,
+        isAdmin: true,
+        isUser: false,
+        user: {
+          name: action.payload.name,
+          email: action.payload.email
+        },
         loading: false,
-      }
+      };
     case "AUTH_ERROR":
     case "LOGOUT":
       localStorage.removeItem("token");
       return {
         ...state,
         isLogin: false,
+        isAdmin: false,
         user: {
           id: "",
           email: "",
