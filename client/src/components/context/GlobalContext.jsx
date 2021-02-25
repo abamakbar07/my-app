@@ -12,10 +12,11 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "USER_LOGIN":
+      localStorage.setItem("token", action.payload.token);
       return {
         ...state,
         isAdmin: false,
-        isUser: true,
+        isLogin: true,
         user: {
           name: action.payload.name,
           email: action.payload.email
@@ -23,10 +24,12 @@ const reducer = (state, action) => {
         loading: false,
       };
     case "ADMIN_LOGIN":
+      localStorage.setItem("token", action.payload.token);
+      console.log("GlobalContext Admin!")
       return {
         ...state,
         isAdmin: true,
-        isUser: false,
+        isLogin: false,
         user: {
           name: action.payload.name,
           email: action.payload.email

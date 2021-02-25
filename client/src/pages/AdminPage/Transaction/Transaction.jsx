@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {Button} from 'react-bootstrap'
 import { AppContext } from '../../../components/context/GlobalContext'
 
@@ -10,6 +10,10 @@ const Transaction = () => {
          type: "LOGOUT"
       })
    }
+
+   useEffect(() => {
+      logout()
+   }, [])
 
    return (
       <div className="text-center">

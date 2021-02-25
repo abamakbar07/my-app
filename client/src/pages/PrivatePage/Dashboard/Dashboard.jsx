@@ -1,15 +1,19 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {Button} from 'react-bootstrap'
 import { AppContext } from '../../../components/context/GlobalContext'
 
 const Dashboard = () => {
    const [state, dispatch] = useContext(AppContext)
-   console.log("iam in dashboard page!")
+
    const logout = () => {
       dispatch({
          type: "LOGOUT"
       })
    }
+
+   useEffect(() => {
+      logout()
+   }, [])
 
    return (
       <div className="text-center">
