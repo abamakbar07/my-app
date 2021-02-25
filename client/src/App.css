@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  /* background: url('./img/bgDashboard.png'); */
+  background-repeat: no-repeat;
 }
 
 .App-logo {
@@ -32,7 +34,308 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.bgTextbox.form-control,
+.bgTextboxSubs.form-control {
+  background-color: rgba(210, 210, 210, 0.25);
+}
+
+.bgTextboxAdd.form-control {
+  height: calc(1.5em + 1rem + 2px);
+  font-weight: 650;
+  background-color: rgba(210, 210, 210, 0.25);
+}
+
+.bgTextboxFile.form-control {
+  background-color: rgba(188, 188, 188, 0.25);
+}
+
+.bgTextboxSubs.form-control img {
+  width: 20px;
+  height: 20px;
+}
+
+.bgTextboxSubs.form-control p {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 25px;
+  color: #D60000;
+}
+
+.btn-danger {
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  background: #D60000 !important;
+  border: none !important;
+}
+
+.btn-dangerAdd {
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  background: #FF0000 !important;
+  border: none !important;
+}
+
+.btn-dark {
+  /* font-family: Avenir !important;
+  font-style: normal !important; */
+  font-weight: 600 !important;
+  color: #000000 !important;
+  background: rgba(205, 205, 205, 0.7) !important;
+  border: none !important;
+}
+
+.LandingPage {
+  background-color: #E5E5E5;
+  /* background-image: url('../src/img/bg.png'); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  padding-top: 5vh;
+}
+
+.LandingPage-content img {
+  display: block;
+  padding: 70px 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+
+.LandingPage-border {
+  display: flex;
+  height: 90vh;
+  width: 90vw;
+  margin-bottom: 5vh;
+  margin-left: 7vw;
+  margin-right: 7vw;
+}
+
+.LandingPage-tombol a {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.LandingPage-dim {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+.Login.card {
+  width: 360px;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 2px 2px 6px #00000050;
+}
+
+.Signup.card {
+  width: 360px;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 2px 2px 6px #00000050;
+}
+
+.submit-button button {
+  width: 100%;
+}
+
+.Dashboard {
+  /* background-color: whitesmoke; */
+}
+
+.Dashboard-comp-hiden {
+  visibility: hidden;
+}
+
+.Dashboard-comp.profile {
+  position: fixed;
+}
+
+.Dashboard-comp-card {
+  /* border: hidden; */
+  min-height: 95vh;
+}
+
+.Dashboard-comp-profile {
+  display: flex;
+  justify-content: center;
+}
+
+.Dashboard-comp-profile-line {
+  position: absolute;
+  width: 230px;
+  height: 0px;
+  border: 1px solid #C9C9C9;
+}
+
+.Dashboard-sidebar-text {
+  font-size: 22px;
+  font-weight: 475;
+}
+
+.Dashboard-sidebar-icon {
+  width: auto;
+  height: 32px;
+}
+
+.MainContent-header {
+  max-width: 66vw;
+}
+
+.MainContent-subTitle {
+  font-family: "Times New Roman";
+  font-size: 40px;
+  margin-bottom: 39px;
+}
+
+.ListBooks {
+  margin-top: 6px;
+  margin-bottom: 69px;
+}
+
+.ListBooks-title {
+  font-family: Times New Roman;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 120.5%;
+  color: #000000;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.Subscribe-card {
+  min-height: 88vh;
+}
+
+.Subscribe-card h1 {
+  font-weight: 700;
+  font-family: Times;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 41px;
+}
+
+.Subscribe-card p {
+  font-weight: 400;
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 19px;
+  text-align: center;
+  color: #000000;
+}
+
+.Subscribe-body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Subscribe-form-file label {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 25px;
+  color: #D60000;
+}
+
+.ProfileDetail .card {
+  background-color: #FFD9D9;
+}
+
+.BookDetail-title {
+  font-family: Times New Roman;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 64px;
+  line-height: 120.5%;
+  color: #000000;
+}
+
+.BookDetail-title~small {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 101.5%;
+  color: #929292;
+}
+
+.BookDetail-aboutTitle {
+  font-family: Times New Roman;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 120.5%;
+  color: #000000;
+}
+
+.BookDetail-aboutSub {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 150%;
+  text-align: justify;
+  color: #929292;
+}
+
+.vRotate {
+  font-weight: 300;
+  font-size: 18px;
+  display: inline-block;
+  transform: rotate(270deg);
+}
+
+.Admin {
+  min-height: 100vh;
+}
+
+.Admin-title {
+  font-family: Times;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.Admin-AddBook-about {
+  background-color: rgba(210, 210, 210, 0.25) !important;
+  height: 200px !important;
+  line-height: 200px !important;
+  padding: 0 5px !important;
+}
+
+.tr-listTransaction th {
+  width: 3%;
+}
+
+.tr-listTransaction td {
+  width: 3%;
 }

@@ -3,12 +3,23 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useHistory } from "react-router-dom";
 
 import { AppContext } from '../../components/context/GlobalContext'
+import { ModalContext } from '../../components/context/LoginRegisterContext';
 import { API, setAuthToken } from '../../config/api';
+import Login from './LoginModal/Login';
+import Register from './RegisterModal/Register';
 
 
 const LandingPage = () => {
    const history = useHistory()
    const [state, dispatch] = useContext(AppContext)
+   const [stateModal, dispatchModal] = useContext(ModalContext)
+
+   const closeModal = () => {
+      dispatchModal({
+         type: "CLOSE_MODAL"
+      })
+   }
+
    const [loginFormData, setLoginFormData] = useState({
       email: "",
       password: ""
@@ -18,6 +29,7 @@ const LandingPage = () => {
 
    const onChange = (e) => {
       setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value})
+      console.log(loginFormData)
    }
    
    const login = async (e) => {
@@ -75,50 +87,18 @@ const LandingPage = () => {
 
    return (
       <Container>
-         <Row>
-            <Col md="4"></Col>
-            <Col md="auto">
 
-               <Form className="mt-5" onSubmit={(e) => login(e)}>
+         <div className="LandingPage-dim" onClick={() => closeModal()} style={{display: stateModal.modalLogin || stateModal.modalRegister ? 'block' : 'none' }}></div>
 
-                  <Form.Group>
-                     <Form.Label>Email address</Form.Label>
-                     <Form.Control
-                        type="email"
-                        placeholder="Enter email"
-                        name="email"
-                        // value={email}
-                        onChange={(e) => onChange(e)}
-                        require
-                     />
-                  </Form.Group>
+         <div className="Login card" style={{display: stateModal.modalLogin ? 'block' : 'none'}} >
+            <Login submit={(e) => login(e)} change={(e) => onChange(e)} />
+         </div>
 
-                  <Form.Group>
-                     <Form.Label>Password</Form.Label>
-                     <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        // value={password}
-                        onChange={(e) => onChange(e)}
-                        require
-                     />
-                  </Form.Group>
+         <div className="Signup card" style={{display: stateModal.modalRegister ? 'block' : 'none'}} >
+            {/* <Register submit={(e) => register(e)} change={(e) => onRegister(e)} /> */}
+            <Register submit="submit" change="change" />
+         </div>
 
-                  <Button variant="primary" type="submit">
-                     Submit
-                  </Button>
-
-               </Form>
-
-            </Col>
-            <Col md="4"></Col>
-
-                  {/* <Button variant="primary" type="submit" onClick={(e) => login(e)}>
-                     Login
-                  </Button> */}
-
-         </Row>
       </Container>
    )
 }

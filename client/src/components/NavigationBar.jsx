@@ -7,10 +7,25 @@ import chart from '../assets/icon/chart.png'
 import iconLogout from '../assets/icon/iconLogout.png'
 import iconBook from '../assets/icon/addBookGrey.png'
 import profileDefault from '../assets/profileDefault.jpg'
+import { ModalContext } from './context/LoginRegisterContext'
 
 // import { AppContext } from './context/GlobalContext'
 
 const NavigationBar = (props) => {
+   const [stateModal, dispatchModal] = useContext(ModalContext)
+
+   const loginButton = () => {
+      dispatchModal({
+         type: "LOGIN_MODAL"
+      })
+   }
+
+   const registerButton = () => {
+      dispatchModal({
+         type: "REGISTER_MODAL"
+      })
+   }
+
    const isAdmin = props.isAdmin
    const isLogin = props.isLogin
 
@@ -22,8 +37,8 @@ const NavigationBar = (props) => {
             {/* </Link> */}
 
             <div style={{display: "block"}}>
-               <Button variant="light mr-4 rounded-0 border-dark">Login</Button>
-               <Button variant="dark mr-4 rounded-0 border-light">Register</Button>
+               <Button onClick={() => loginButton()} variant="light mr-4 rounded-0 border-dark">Login</Button>
+               <Button onClick={() => registerButton()} variant="dark mr-4 rounded-0 border-light">Register</Button>
             </div>
 
             <div className="block d-flex mr-3">
