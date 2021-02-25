@@ -5,6 +5,7 @@ import { AppContext } from '../context/GlobalContext';
 export const PrivateRoute = ({component : Component, ...rest}) => {
   const [state] = useContext(AppContext);
   const isLogin = state.isLogin;
+  console.log(isLogin)
 
   return (
     <Route

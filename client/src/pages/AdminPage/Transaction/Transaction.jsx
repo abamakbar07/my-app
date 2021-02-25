@@ -11,10 +11,6 @@ const Transaction = () => {
       })
    }
 
-   useEffect(() => {
-      logout()
-   }, [])
-
    return (
       <div className="text-center">
          <Button className="d-block" onClick={() => logout()}>

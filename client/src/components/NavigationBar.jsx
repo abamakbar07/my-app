@@ -13,8 +13,6 @@ import profileDefault from '../assets/profileDefault.jpg'
 const NavigationBar = (props) => {
    const isAdmin = props.isAdmin
    const isLogin = props.isLogin
-   console.log("isAdmin "+isAdmin)
-   console.log("isLogin "+isLogin)
 
    return (
       <div>

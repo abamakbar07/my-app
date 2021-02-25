@@ -22,7 +22,6 @@ const LandingPage = () => {
    
    const login = async (e) => {
       e.preventDefault();
-
       try {
          const body = JSON.stringify({
             email: email,
@@ -62,9 +61,17 @@ const LandingPage = () => {
       }
    }
 
-   // useEffect(() => {
-   //    login()
-   // }, [])
+   useEffect(() => {
+      if (!state.loading && state.user.isAdmin) {
+         dispatch({
+            type: "ADMIN_LOADED",
+            payload: state.user
+         })
+         history.push('/admin/transaction')
+      } else if (!state.loading && state.isLogin) {
+         history.push('/dashboard')
+      }
+   }, [state])
 
    return (
       <Container>

@@ -27,6 +27,9 @@ if (localStorage.token) {
 const App = () => {
   const [state, dispatch] = useContext(AppContext)
 
+  console.log("App.js | isAdmin = "+state.isAdmin)
+  console.log("App.js | isLogin = "+state.isLogin)
+
   const checkUser = async () => {
     try {
       const response = await API.get("/check-auth");

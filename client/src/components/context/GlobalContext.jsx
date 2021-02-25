@@ -3,8 +3,8 @@ import { createContext, useReducer } from "react";
 export const AppContext = createContext();
 
 const initialState = {
-  isLogin: false,
-  isAdmin: false,
+  // isLogin: false,
+  // isAdmin: false,
   user: null,
   loading: true,
 };
@@ -19,7 +19,8 @@ const reducer = (state, action) => {
         isLogin: true,
         user: {
           name: action.payload.name,
-          email: action.payload.email
+          email: action.payload.email,
+          isAdmin: action.payload.isAdmin
         },
         loading: false,
       };
@@ -32,9 +33,31 @@ const reducer = (state, action) => {
         isLogin: false,
         user: {
           name: action.payload.name,
-          email: action.payload.email
+          email: action.payload.email,
+          isAdmin: action.payload.isAdmin
         },
         loading: false,
+      };
+    case "USER_LOADED":
+      return {
+        ...state,
+        isLogin: true,
+        user: {
+          email: action.payload.email,
+          fullName: action.payload.fullName,
+          isAdmin: action.payload.isAdmin
+        },
+        loading: false,
+      };
+    case "ADMIN_LOADED":
+      return {
+        ...state,
+        isAdmin: true,
+        user: {
+          email: action.payload.email,
+          fullname: action.payload.fullname,
+          isAdmin: action.payload.isAdmin
+        },
       };
     case "AUTH_ERROR":
     case "LOGOUT":
@@ -47,7 +70,7 @@ const reducer = (state, action) => {
           id: "",
           email: "",
           fullName: "",
-          role: "",
+          isAdmin: "",
         },
       };
     default:
