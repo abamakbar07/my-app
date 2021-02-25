@@ -10,10 +10,12 @@ import { AdminRoute } from './components/routes/AdminRoute'
 import { API, setAuthToken } from './config/api'
 
 import { AppContext } from './components/context/GlobalContext'
-import { ModalContextProvider } from "./components/context/LoginRegisterContext";
+import { ModalContextProvider } from "./components/context/ModalContext";
+import { CartContextProvider } from "./components/context/CartContext";
+
+import NavigationBar from "./components/NavigationBar";
 
 import LandingPage from "./pages/LandingPage/LandingPage";
-import NavigationBar from "./components/NavigationBar";
 
 import Dashboard from "./pages/PrivatePage/Dashboard/Dashboard";
 import BookDetail from './pages/PrivatePage/BookDetail/BookDetail'
@@ -29,9 +31,6 @@ if (localStorage.token) {
 
 const App = () => {
   const [state, dispatch] = useContext(AppContext)
-
-  console.log("App.js | isAdmin = "+state.isAdmin)
-  console.log("App.js | isLogin = "+state.isLogin)
 
   const checkUser = async () => {
     try {
@@ -61,24 +60,30 @@ const App = () => {
 
   return (
     <ModalContextProvider>
-      <Router>
-        <div className="App">
-          <NavigationBar isAdmin={state.isAdmin} isLogin={state.isLogin} />
-          <Switch>
-            <Route path="/" exact component={LandingPage} />
-            <PrivateRoute path="/dashboard" exact component={Dashboard} />
-            <PrivateRoute path="/profile" exact component={Profile} />
-            <PrivateRoute path="/book-detail" exact component={BookDetail} />
-            <PrivateRoute path="/cart" exact component={Cart} />
-            <AdminRoute
-              path="/admin/transaction"
-              exact
-              component={Transaction}
-            />
-            <AdminRoute path="/admin/add-book" exact component={AddBook} />
-          </Switch>
-        </div>
-      </Router>
+      <CartContextProvider>
+          <Router>
+            <div className="App">
+              <NavigationBar isAdmin={state.isAdmin} isLogin={state.isLogin} />
+              <Switch>
+                <Route path="/" exact component={LandingPage} />
+                <PrivateRoute path="/dashboard" exact component={Dashboard} />
+                <PrivateRoute path="/profile" exact component={Profile} />
+                <PrivateRoute
+                  path="/book-detail/:id"
+                  exact
+                  component={BookDetail}
+                />
+                <PrivateRoute path="/cart" exact component={Cart} />
+                <AdminRoute
+                  path="/admin/transaction"
+                  exact
+                  component={Transaction}
+                />
+                <AdminRoute path="/admin/add-book" exact component={AddBook} />
+              </Switch>
+            </div>
+          </Router>
+      </CartContextProvider>
     </ModalContextProvider>
   );
 }

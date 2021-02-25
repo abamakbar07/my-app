@@ -3,8 +3,11 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useHistory } from "react-router-dom";
 
 import { AppContext } from '../../components/context/GlobalContext'
-import { ModalContext } from '../../components/context/LoginRegisterContext';
+import { ModalContext } from '../../components/context/ModalContext';
 import { API, setAuthToken } from '../../config/api';
+import BestBook from '../HomeComponents/BestBook';
+import Header from '../HomeComponents/Header';
+import ListBooks from '../HomeComponents/ListBooks';
 import Login from './LoginModal/Login';
 import Register from './RegisterModal/Register';
 
@@ -29,7 +32,6 @@ const LandingPage = () => {
 
    const onChange = (e) => {
       setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value})
-      console.log(loginFormData)
    }
    
    const login = async (e) => {
@@ -54,7 +56,6 @@ const LandingPage = () => {
                type: "ADMIN_LOGIN",
                payload: userResult
             })
-            console.log("ADMIN LOGIN!")
             setAuthToken(userResult.token);
             console.log(userResult.token)
             history.push("/admin/transaction");
@@ -63,7 +64,6 @@ const LandingPage = () => {
                type: "USER_LOGIN",
                payload: userResult
             });
-            console.log("USER LOGIN!")
             history.push("/dashboard");
          }
          setAuthToken(userResult.token);
@@ -86,7 +86,12 @@ const LandingPage = () => {
    }, [state])
 
    return (
-      <Container>
+      <Container fluid>
+         <div>
+            <Header />
+            <BestBook />
+            <ListBooks />
+         </div>
 
          <div className="LandingPage-dim" onClick={() => closeModal()} style={{display: stateModal.modalLogin || stateModal.modalRegister ? 'block' : 'none' }}></div>
 
@@ -98,6 +103,7 @@ const LandingPage = () => {
             {/* <Register submit={(e) => register(e)} change={(e) => onRegister(e)} /> */}
             <Register submit="submit" change="change" />
          </div>
+
 
       </Container>
    )

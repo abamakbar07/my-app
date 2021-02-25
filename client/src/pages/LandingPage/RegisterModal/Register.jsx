@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import { ModalContext } from '../../../components/context/LoginRegisterContext'
+import { ModalContext } from '../../../components/context/ModalContext'
 
 
 const Register = (props) => {

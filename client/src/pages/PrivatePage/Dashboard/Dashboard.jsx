@@ -1,23 +1,22 @@
 import React, {useContext, useEffect} from 'react'
-import {Button} from 'react-bootstrap'
+import {Button, Container, Jumbotron} from 'react-bootstrap'
 import { AppContext } from '../../../components/context/GlobalContext'
+import BestBook from '../../HomeComponents/BestBook'
+import Header from '../../HomeComponents/Header'
+import ListBooks from '../../HomeComponents/ListBooks'
 
 const Dashboard = () => {
-   const [state, dispatch] = useContext(AppContext)
-
-   const logout = () => {
-      dispatch({
-         type: "LOGOUT"
-      })
-   }
 
    return (
-      <div className="text-center">
-         <Button className="d-block" onClick={() => logout()}>
-            Logout
-         </Button>
-         Dashboard
-      </div>
+      <Container fluid>
+         
+         <Header />
+
+         <BestBook />
+
+         <ListBooks />
+
+      </Container>
    )
 }
 

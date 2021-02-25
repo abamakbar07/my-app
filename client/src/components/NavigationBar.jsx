@@ -7,12 +7,22 @@ import chart from '../assets/icon/chart.png'
 import iconLogout from '../assets/icon/iconLogout.png'
 import iconBook from '../assets/icon/addBookGrey.png'
 import profileDefault from '../assets/profileDefault.jpg'
-import { ModalContext } from './context/LoginRegisterContext'
-
-// import { AppContext } from './context/GlobalContext'
+import { ModalContext } from './context/ModalContext'
+import { AppContext } from './context/GlobalContext'
 
 const NavigationBar = (props) => {
    const [stateModal, dispatchModal] = useContext(ModalContext)
+   const [state, dispatch] = useContext(AppContext)
+
+   const logout = () => {
+      dispatch({
+         type: "LOGOUT"
+      })
+
+      dispatchModal({
+         type: "CLOSE_MODAL"
+      })
+   }
 
    const loginButton = () => {
       dispatchModal({
@@ -32,19 +42,22 @@ const NavigationBar = (props) => {
    return (
       <div>
          <Navbar className="justify-content-between bg-transparent pt-3">
-            {/* <Link to={isAdmin ? "/admin/transaction" : "/"} > */}
-               <img className="ml-3" alt="" src={logo} width="105px" style={{transform: "rotate(-15deg)"}} />
-            {/* </Link> */}
 
-            <div style={{display: "block"}}>
+            <div className="ml-5">
+               <Link to={isAdmin ? "/admin/transaction" : "/"} >
+                  <img alt="" src={logo} width="105px" style={{transform: "rotate(-15deg)"}} />
+               </Link>
+            </div>
+
+            <div style={{display: isAdmin || isLogin ? "none" : "block"}}>
                <Button onClick={() => loginButton()} variant="light mr-4 rounded-0 border-dark">Login</Button>
                <Button onClick={() => registerButton()} variant="dark mr-4 rounded-0 border-light">Register</Button>
             </div>
 
-            <div className="block d-flex mr-3">
+            <div style={{display: isAdmin || isLogin ? "flex" : "none" }} className="mr-3">
 
                <Link to="/cart">
-                  <div className="mt-3">
+                  <div className={isAdmin ? "d-none" : "mt-3"}>
                      <img src={chart} alt="" />
                   </div>
                </Link>
@@ -56,25 +69,25 @@ const NavigationBar = (props) => {
 
                   <Dropdown.Menu>
                      <Dropdown.Item className="p-0">
-                        <div className="row container text-right"> {/* onClick={props.profile} */}
-                           <div className="">
-                              <img alt="" className="ml-3 invert" width="25px" src={iconBook} />
+                        <Link to={isAdmin ? "/admin/transaction" : "/profile"} >
+                           <div className="row container text-right"> {/* onClick={props.profile} */}
+                              <div>
+                                 <img alt="" className="ml-3 invert" width="25px" src={iconBook} />
+                              </div>
+                              <p className="text-left m-0 p-0 text-secondary">{isAdmin ? state.pageTransaction ? "AddBook" : "Transaction" : "Profile"}</p>
                            </div>
-                           <p className="text-left m-0 p-0 text-secondary">Profile</p>
-                        </div>
+                        </Link>
                      </Dropdown.Item>
 
                      <Dropdown.Divider />
 
                      <Dropdown.Item className="p-0">
-                        <Link to="/" >
-                           <div className="row container text-right">
-                              <div className="">
+                           <div className="row container text-right" onClick={() => logout()}>
+                              <div>
                                  <img alt="" className="ml-3" src={iconLogout} />
                               </div>
                               <p className="text-left m-0 p-0 text-secondary">Logout</p>
                            </div>
-                        </Link>
                      </Dropdown.Item>
 
                   </Dropdown.Menu>

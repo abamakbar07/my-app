@@ -3,8 +3,8 @@ import { createContext, useReducer } from "react";
 export const AppContext = createContext();
 
 const initialState = {
-  // isLogin: false,
-  // isAdmin: false,
+  isLogin: false,
+  isAdmin: false,
   user: null,
   loading: true,
 };
@@ -26,7 +26,6 @@ const reducer = (state, action) => {
       };
     case "ADMIN_LOGIN":
       localStorage.setItem("token", action.payload.token);
-      console.log("GlobalContext Admin!")
       return {
         ...state,
         isAdmin: true,
@@ -37,6 +36,7 @@ const reducer = (state, action) => {
           isAdmin: action.payload.isAdmin
         },
         loading: false,
+        pageTransaction: true,
       };
     case "USER_LOADED":
       return {
@@ -58,6 +58,7 @@ const reducer = (state, action) => {
           fullname: action.payload.fullname,
           isAdmin: action.payload.isAdmin
         },
+        pageTransaction: true,
       };
     case "AUTH_ERROR":
     case "LOGOUT":
@@ -72,6 +73,7 @@ const reducer = (state, action) => {
           fullName: "",
           isAdmin: "",
         },
+        pageTransaction: false,
       };
     default:
       throw new Error();
