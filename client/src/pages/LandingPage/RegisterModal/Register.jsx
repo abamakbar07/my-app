@@ -31,9 +31,8 @@ const Register = (props) => {
               <Form.Control className="bgTextbox mt-3 mb-3" name="fullname" type="fullname" placeholder="Full Name" onChange={change} />
 
               <div className="" onClick={props.statusSignup}>
-                <Button className="mt-2 submit-button text-white" variant="" type="submit" onClick={props.rtn} style={{
-                  width: "100%",
-                  background: "#393939"
+                <Button className="mt-2 submit-button globalButtonNoRound" variant="" type="submit" onClick={props.rtn} style={{
+                  width: "100%"
                 }}>
                   Register
                 </Button>

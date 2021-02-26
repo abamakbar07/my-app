@@ -28,9 +28,8 @@ const Login = (props) => {
               <Form.Control className="bgTextbox mb-3" name="password" type="password" placeholder="Password" onChange={change} />
 
                 <div className="" onClick={props.statusLogin}>
-                  <Button onClick={props.rtn} className="mt-2 submit-button text-white" variant="" type="submit" style={{
-                    width: "100%",
-                    background: "#393939"
+                  <Button onClick={props.rtn} className="mt-2 submit-button globalButtonNoRound" variant="" type="submit" style={{
+                    width: "100%"
                   }}>
                     Login
                   </Button>

@@ -139,7 +139,7 @@ const BookDetail = () => {
             <div className={loading ? "d-false" : "row"}>
                <div className="col-sm-12 text-right">
                   <Link to="/cart" className={addCart ? "" : "d-none"}>
-                     <button onClick={() => addProductToCart(bookResult.id)} className="btn btn-danger m-1">Add To Cart<img alt="" className="ml-2" src={iconBookmark} /></button>
+                     <button onClick={() => addProductToCart(bookResult.id)} className="btn globalButtonNoRound m-1">Add To Cart<img alt="" className="ml-2" src={iconBookmark} /></button>
                      {/* <button className="btn btn-danger m-1">Add To Cart<img alt="" className="ml-2" src={iconBookmark} /></button> */}
                   </Link>
                   <Link className={addCart ? "d-none" : ""}>

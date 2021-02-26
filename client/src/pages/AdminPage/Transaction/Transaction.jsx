@@ -21,7 +21,7 @@ const Transaction = () => {
          };
          await API.patch("/transaction/"+id, body, config )
 
-         history.push("/Admin")
+         history.push("/")
          
       } catch (error) {
          console.log(error)
@@ -40,7 +40,7 @@ const Transaction = () => {
          };
          await API.patch("/transaction/"+id, body, config )
          
-         history.push("/Admin")
+         history.push("/")
          
       } catch (error) {
          console.log(error)
@@ -64,11 +64,9 @@ const Transaction = () => {
   }, []);
 
    return (
-      <div className="">
-         <div className="Transaction">
-            <div className="container"  style={{
-                  paddingTop: "20vh"
-               }}>
+      <div>
+         <div className="">
+            <div className="container pl-5 pr-5"  style={{paddingTop: "5vh" }}>
                <div className="row">
                   <div className="col-md-12">
                      <div className="d-flex mb-5">

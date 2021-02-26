@@ -95,11 +95,11 @@ const LandingPage = () => {
 
          <div className="LandingPage-dim" onClick={() => closeModal()} style={{display: stateModal.modalLogin || stateModal.modalRegister ? 'block' : 'none' }}></div>
 
-         <div className="Login card" style={{display: stateModal.modalLogin ? 'block' : 'none'}} >
+         <div className="Login card modalLoginRegister" style={{display: stateModal.modalLogin ? 'block' : 'none'}} >
             <Login submit={(e) => login(e)} change={(e) => onChange(e)} />
          </div>
 
-         <div className="Signup card" style={{display: stateModal.modalRegister ? 'block' : 'none'}} >
+         <div className="Signup card modalLoginRegister" style={{display: stateModal.modalRegister ? 'block' : 'none'}} >
             {/* <Register submit={(e) => register(e)} change={(e) => onRegister(e)} /> */}
             <Register submit="submit" change="change" />
          </div>

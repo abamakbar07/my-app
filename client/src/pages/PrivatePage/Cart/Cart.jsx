@@ -237,7 +237,7 @@ const Cart = () => {
                                     {/* <Form.Control className="d-none" name="paymentTotal" type="text" value={totalPrice} /> */}
                                     {/* <Form.Control className="d-none" name="qty" type="text" value={carts.length} /> */}
                                     {/* <Form.Control className="d-none" name="productPurchased" type="text" value={purchasedProduct} /> */}
-                                    <Button block onSubmit={(e) => onSubmit(e)} type="submit">Pay</Button>
+                                    <Button block onSubmit={(e) => onSubmit(e)} type="submit" className="globalButton border-0">Pay</Button>
                                  </Form.Group>
                               </Form>
                            </Col>
