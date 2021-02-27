@@ -21,6 +21,9 @@ const Transaction = () => {
          };
          await API.patch("/transaction/"+id, body, config )
 
+         getTransaction()
+         setLoading(false)
+
          history.push("/")
          
       } catch (error) {
@@ -39,6 +42,9 @@ const Transaction = () => {
             },
          };
          await API.patch("/transaction/"+id, body, config )
+
+         getTransaction()
+         setLoading(false)
          
          history.push("/")
          

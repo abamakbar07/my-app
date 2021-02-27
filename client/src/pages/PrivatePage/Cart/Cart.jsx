@@ -2,12 +2,14 @@ import React, { useContext, useState } from 'react'
 import { Card, Col, Form, Row, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { CartContext } from '../../../components/context/CartContext';
+import { AppContext } from '../../../components/context/GlobalContext';
 import { API } from '../../../config/api';
 
 import iconTransaction from '../../../assets/uploadTransaction.png'
 
 const Cart = () => {
    const history = useHistory()
+   const [state, dispatch] = useContext(AppContext)
    const [stateCart, dispatchCart] = useContext(CartContext);
    const { carts } = stateCart;
 
@@ -31,7 +33,7 @@ const Cart = () => {
 
    const [loading, setLoading] = useState(false)
    const [addTransaction, setAddTransaction] = useState({
-      users: localStorage.id,
+      users: state.user.id,
       transferProof: "",
       productPurchased: purchasedProduct,
       paymentTotal: totalPrice,

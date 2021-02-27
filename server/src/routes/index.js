@@ -5,7 +5,7 @@ const { register, login, checkAuth } = require("../controllers/authControllers")
 const { addBook, getBooks, getBookDetail } = require("../controllers/bookControllers");
 const { getBookTransactions, addBookTransaction, getBookTransaction } = require("../controllers/bookTransactionControllers");
 const { addTransaction, getTransactions, editTransaction, getTransaction } = require("../controllers/transactionControllers");
-const { getUser, editUser } = require("../controllers/userControllers");
+const { getUser, editUser, editUserNoImage } = require("../controllers/userControllers");
 const { loginAuth } = require("../middlewares/auth");
 const { uploadBookNew } = require("../middlewares/uploadBook");
 const { uploadProfileImage } = require("../middlewares/uploadProfile");
@@ -17,6 +17,8 @@ router.get("/check-auth", loginAuth, checkAuth);
 
 router.get("/user/:id", getUser)
 router.post("/user/edit", uploadProfileImage("profilImage"), editUser)
+router.post("/user/edit-noimage", editUserNoImage);
+// router.patch("/user/:id", uploadProfileImage("profilImage"), editUser)
 
 router.get("/books", getBooks)
 router.get("/book/:id", getBookDetail)

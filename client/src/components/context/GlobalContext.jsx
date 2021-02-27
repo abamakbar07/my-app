@@ -18,6 +18,7 @@ const reducer = (state, action) => {
         isAdmin: false,
         isLogin: true,
         user: {
+          id: action.payload.id,
           name: action.payload.name,
           email: action.payload.email,
           isAdmin: action.payload.isAdmin
@@ -31,6 +32,7 @@ const reducer = (state, action) => {
         isAdmin: true,
         isLogin: false,
         user: {
+          id: action.payload.id,
           name: action.payload.name,
           email: action.payload.email,
           isAdmin: action.payload.isAdmin
@@ -43,6 +45,7 @@ const reducer = (state, action) => {
         ...state,
         isLogin: true,
         user: {
+          id: action.payload.id,
           email: action.payload.email,
           fullName: action.payload.fullName,
           isAdmin: action.payload.isAdmin
@@ -54,6 +57,7 @@ const reducer = (state, action) => {
         ...state,
         isAdmin: true,
         user: {
+          id: action.payload.id,
           email: action.payload.email,
           fullname: action.payload.fullname,
           isAdmin: action.payload.isAdmin

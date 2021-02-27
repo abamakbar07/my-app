@@ -1,10 +1,31 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { AppContext } from '../../../components/context/GlobalContext'
+import { API } from '../../../config/api'
 import ProfileDetail from './ProfileDetail'
 import ProfileListBooks from './ProfileListBooks'
 
 const Profile = (props) => {
+   const [state] = useContext(AppContext)
+   const [loading, setLoading] = useState(true)
+   const [listTransaction, setListTransaction] = useState([])
+
+   const getTransactionUser = async () => {
+      try {
+         setLoading(true)
+         const resultTransaction = await API.get("/transaction/"+state.user.id)
+         setListTransaction(resultTransaction.data.data.transaction)
+         setLoading(false)
+      } catch (error) {
+         console.log(error)
+      }
+   }
+
+   useEffect(() => {
+      getTransactionUser()
+   }, [])
+
    return (
-      <div>
+      <div className="container">
          <div className="Profile">
             <div className="container">
                <div className="row mt-5">
@@ -17,7 +38,7 @@ const Profile = (props) => {
                      <h4 className="MainContent-subTitle text-left font-weight-bold" style={{marginTop: '68px'}}>My List Book</h4>
                      {/* <div className="row"> */}
                         {/* <ProfileListBooks listTransaction={props.listTransaction} /> */}
-                        <ProfileListBooks />
+                        <ProfileListBooks listTransaction={listTransaction} />
                      {/* </div> */}
                   </div>
                </div>

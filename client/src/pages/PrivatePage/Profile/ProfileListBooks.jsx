@@ -10,26 +10,14 @@ const ProfileListBooks = () => {
 
    const [listBookTransaction, setListBookTransaction] = useState([])
 
-   const [listTransaction, setListTransaction] = useState([])
-
-   const getTransactionUser = async () => {
-
-      try {
-         const resultTransaction = await API.get("/transaction/19")
-         setListTransaction(resultTransaction.data.data.transaction)
-      } catch (error) {
-         console.log(error)
-      }
-   }
-
-   const getData = async () => {
+   const getData = async (props) => {
       try {
          setLoading(true)
 
          const resultBook = await API.get("/books")
          setListBook(resultBook.data.data.books)
          
-         const resultBookTransaction = await API.get("/booktransaction/"+listTransaction.id)
+         const resultBookTransaction = await API.get("/booktransaction/"+props.listTransaction.id)
          setListBookTransaction(resultBookTransaction.data.data.bookTransaction)
          
          setLoading(false)
@@ -39,7 +27,6 @@ const ProfileListBooks = () => {
    }
 
    useEffect(() => {
-      getTransactionUser()
       getData()
    }, [])
 
