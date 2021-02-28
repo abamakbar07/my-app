@@ -64,6 +64,16 @@ const reducer = (state, action) => {
         },
         pageTransaction: true,
       };
+    case "REGISTER_SUCCESS":
+      return {
+      ...state,
+      registerStatus: true,
+      }
+    case "REGISTER_FAILED":
+      return {
+      ...state,
+      registerStatus: false,
+      }  
     case "AUTH_ERROR":
     case "LOGOUT":
       localStorage.removeItem("token");

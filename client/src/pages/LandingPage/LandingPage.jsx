@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
+import { Container, Modal, Button } from 'react-bootstrap'
 import { useHistory } from "react-router-dom";
 
 import { AppContext } from '../../components/context/GlobalContext'
@@ -17,6 +17,23 @@ const LandingPage = () => {
    const [state, dispatch] = useContext(AppContext)
    const [stateModal, dispatchModal] = useContext(ModalContext)
 
+   const [loginModal, setLoginModal] = useState(false);
+   const [registerModal, setRegisterModal] = useState(false);
+
+   const handleClose = () => {
+      setLoginModal(false);
+      setRegisterModal(false);
+   }
+
+   const loginModalDisplay = () => {
+      setLoginModal(true)
+   }
+
+   const registerModalDisplay = () => {
+      setRegisterModal(true)
+   }
+
+
    const closeModal = () => {
       dispatchModal({
          type: "CLOSE_MODAL"
@@ -28,8 +45,6 @@ const LandingPage = () => {
       password: ""
    })
 
-   const { email, password } = loginFormData;
-
    const onChange = (e) => {
       setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value})
    }
@@ -38,8 +53,8 @@ const LandingPage = () => {
       e.preventDefault();
       try {
          const body = JSON.stringify({
-            email: email,
-            password: password,
+            email: loginFormData.email,
+            password: loginFormData.password
          })
 
          const config = {
@@ -73,6 +88,53 @@ const LandingPage = () => {
       }
    }
 
+  const [signupFormData, setSignupFormData] = useState({
+    email: "",
+    password: "",
+    fullname: "",
+  });
+
+  const { email, password, fullname } = signupFormData;
+
+  const onRegister = (e) => {
+    setSignupFormData({ ...signupFormData, [e.target.name]: e.target.value });
+  };
+
+  const register = async (e) => {
+    e.preventDefault();
+
+    try {
+      const body = JSON.stringify({
+        email,
+        password,
+        fullname,
+      });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const user = await API.post("/register", body, config);
+
+      console.log("Frntend: Register success")
+
+      setAuthToken(user.data.data.user.token);
+
+      dispatch({
+         type: "REGISTER_SUCCESS"
+      })
+      
+      history.push("/");
+      
+    } catch (error) {
+         dispatch({
+            type: "REGISTER_SUCCESS"
+         })
+    }
+  };
+
    useEffect(() => {
       if (!state.loading && state.user.isAdmin) {
          dispatch({
@@ -81,6 +143,7 @@ const LandingPage = () => {
          })
          history.push('/admin/transaction')
       } else if (!state.loading && state.isLogin) {
+         loginModalDisplay()
          history.push('/dashboard')
       }
    }, [state])
@@ -93,16 +156,46 @@ const LandingPage = () => {
             <ListBooks />
          </div>
 
-         <div className="LandingPage-dim" onClick={() => closeModal()} style={{display: stateModal.modalLogin || stateModal.modalRegister ? 'block' : 'none' }}></div>
-
-         <div className="Login card modalLoginRegister" style={{display: stateModal.modalLogin ? 'block' : 'none'}} >
-            <Login submit={(e) => login(e)} change={(e) => onChange(e)} />
+         <div  className="LandingPage-dim" 
+               onClick={() => closeModal()} 
+               style={{
+                  display: stateModal.modalLogin || stateModal.modalRegister ? 'block' : 'none' 
+               }} >
          </div>
 
-         <div className="Signup card modalLoginRegister" style={{display: stateModal.modalRegister ? 'block' : 'none'}} >
-            {/* <Register submit={(e) => register(e)} change={(e) => onRegister(e)} /> */}
-            <Register submit="submit" change="change" />
+         <div  className="Login card modalLoginRegister"
+               style={{
+                  display: stateModal.modalLogin ? 'block' : 'none'
+               }}
+         >
+                  <Login statusLogin={loginModalDisplay} submit={(e) => login(e)} change={(e) => onChange(e)} />
          </div>
+
+         <div  className="Signup card modalLoginRegister" 
+               style={{
+                  display: stateModal.modalRegister ? 'block' : 'none'
+               }}
+         >
+                  <Register statusSignup={registerModalDisplay} submit={(e) => register(e)} change={(e) => onRegister(e)} />
+         </div>
+
+         <Modal show={loginModal} onHide={handleClose}>
+            <Modal.Body className={state.isLogin ? "text-success" : "text-danger"}>{state.isLogin ? "Login succesfully!" : "Login Failed"}</Modal.Body>
+            <Modal.Footer>
+               <Button variant="primary" onClick={handleClose}>
+                  Ok
+               </Button>
+            </Modal.Footer>
+         </Modal>
+
+         <Modal show={registerModal} onHide={handleClose}>
+            <Modal.Body className={state.registerStatus ? "text-success" : "text-danger"}>{state.registerStatus ? "Your email succesfully registered! Login now!" : "Register Failed"}</Modal.Body>
+            <Modal.Footer>
+               <Button variant="primary" onClick={handleClose}>
+                  Ok
+               </Button>
+            </Modal.Footer>
+         </Modal>
 
 
       </Container>
