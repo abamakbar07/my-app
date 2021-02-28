@@ -5,7 +5,6 @@ import { AppContext } from '../context/GlobalContext';
 export const AdminRoute = ({ component: Component, ...rest }) => {
   const [state] = useContext(AppContext);
   const isAdmin = state.isAdmin;
-  console.log("Admin Route")
 
   return (
     <Route

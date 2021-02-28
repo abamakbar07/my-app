@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   Transactions.init({
     users: DataTypes.STRING,
     transferProof: DataTypes.STRING,
-    productPurchased: DataTypes.INTEGER,
+    productPurchased: DataTypes.STRING,
     paymentTotal: DataTypes.INTEGER,
     paymentStatus: DataTypes.STRING
   }, {

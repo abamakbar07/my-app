@@ -3,14 +3,15 @@ import { Card, Row, Col, Button } from 'react-bootstrap';
 
 import { API } from '../../../config/api'
 
-const ProfileListBooks = () => {
+const ProfileListBooks = (props) => {
    const [loading, setLoading] = useState(true)
    const [paymentStatus, setPaymentStatus] = useState()
    const [listBook, setListBook] = useState([])
-
+   console.log(props.listTransaction)
+   
    const [listBookTransaction, setListBookTransaction] = useState([])
-
-   const getData = async (props) => {
+   
+   const getData = async () => {
       try {
          setLoading(true)
 
@@ -19,6 +20,7 @@ const ProfileListBooks = () => {
          
          const resultBookTransaction = await API.get("/booktransaction/"+props.listTransaction.id)
          setListBookTransaction(resultBookTransaction.data.data.bookTransaction)
+
          
          setLoading(false)
       } catch (error) {

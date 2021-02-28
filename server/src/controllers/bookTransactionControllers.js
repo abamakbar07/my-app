@@ -1,14 +1,16 @@
-const { Userbooktransactions, Transactions, Books } = require("../../models");
+const { Bookpurchased, Transactions, Books } = require("../../models");
 
 exports.addBookTransaction = async (req, res) => {
   const { body } = req;
 
+  console.log(body)
+
   try {
-    const bookTransaction = await Userbooktransactions.create({
+    const bookTransaction = await Bookpurchased.create({
       ...body,
     });
 
-    const resultBookTransaction = await Userbooktransactions.findOne({
+    const resultBookTransaction = await Bookpurchased.findOne({
       where: {
         id: bookTransaction.id,
       },
@@ -33,7 +35,7 @@ exports.addBookTransaction = async (req, res) => {
 
 exports.getBookTransactions = async (req, res) => {
   try {
-    const bookTransactions = await Userbooktransactions.findAll({
+    const bookTransactions = await Bookpurchased.findAll({
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
@@ -103,7 +105,7 @@ exports.getBookTransaction = async (req, res) => {
   const { idTransaction } = req.params;
 
   try {
-    const bookTransaction = await Userbooktransactions.findAll({
+    const bookTransaction = await Bookpurchased.findAll({
       where: {
         idTransaction,
       },

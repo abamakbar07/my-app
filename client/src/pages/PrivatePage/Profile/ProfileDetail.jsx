@@ -57,7 +57,6 @@ const ProfileDetail = () => {
          file: URL.createObjectURL(e.target.files[0])
       })
       setPreview(true)
-      console.log(editProfil)
    }
    
    const onChange = (e) => {
@@ -159,8 +158,15 @@ const ProfileDetail = () => {
                   </ListGroup>
                </div>
                <div className="col-md-4">
-                  <ListGroup>
-                     <img src={loading ? "Wait..." : editProfil.profilImage === null ? profileDefault : "http://localhost:5000/profiles/"+editProfil.profilImage } style={{width: "100%"}} alt="" />
+                  <ListGroup className="">
+                     <img  src={loading ? "Wait..." : editProfil.profilImage === null ? profileDefault : "http://localhost:5000/profiles/"+editProfil.profilImage }
+                           style={{
+                              width: "15vw",
+                              marginLeft: "auto",
+                              marginRight: "auto"
+                           }} 
+                           alt="" 
+                        />
                   </ListGroup>
                   <ListGroup className="mt-2">
                      <div className="btn btn-danger" onClick={(e) => onEdit(e)}>Edit Profile</div>
@@ -250,14 +256,18 @@ const ProfileDetail = () => {
                                     <img  className={preview ? "d-none" : ""}
                                           src={editProfil.profilImage === null ? profileDefault : "http://localhost:5000/profiles/"+editProfil.profilImage}
                                           style={{
-                                             width: "100%",
+                                             width: "15vw",
+                                             marginLeft: "auto",
+                                             marginRight: "auto",
                                              filter: "brightness(75%)"
                                              }}
                                           />
                                     <img  className={preview ? "" : "d-none"}
                                           src={previewImage.file}
                                           style={{
-                                             width: "100%",
+                                             width: "15vw",
+                                             marginLeft: "auto",
+                                             marginRight: "auto",
                                              filter: "brightness(75%)"
                                              }}
                                           />

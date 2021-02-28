@@ -1,4 +1,4 @@
-const { Transactions, Users } = require("../../models");
+const { Transactions, Users, Books } = require("../../models");
 
 exports.addTransaction = async (req, res) => {
   const { body, files } = req;
@@ -160,6 +160,23 @@ exports.getTransactions = async (req, res) => {
     });
 
     for (i = 0; i < transaction.length; i++) {
+      const bookPurchased = transaction[i].productPurchased.split(",")
+      let bookResult = []
+
+      for ( j = 0; j < bookPurchased.length; j++ ) {
+        const book = await Books.findOne({
+          where: {
+            id: bookPurchased[j]
+          },
+          attributes : {
+            exclude: ["createdAt", "updatedAt"]
+          }
+        })
+        
+        bookResult[j] = book
+        
+      }
+
       const user = await Users.findOne({
         where: {
           id: transaction[i].users,
@@ -168,7 +185,10 @@ exports.getTransactions = async (req, res) => {
           exclude: ["email", "password", "createdAt", "updatedAt", "isAdmin", "gender", "phone", "address", "profilImage"],
         },
       });      
+
       transaction[i].users = user;
+      transaction[i].productPurchased = bookResult;
+
     }
 
     res.send({

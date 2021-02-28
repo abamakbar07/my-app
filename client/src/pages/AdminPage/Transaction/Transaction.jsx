@@ -58,7 +58,7 @@ const Transaction = () => {
          const transactions = await API.get("/transactions");
          setLoading(false);
          setData(transactions.data.data.transactions);
-         console.log(transactions.data.data.transactions);
+         console.log(transactions.data.data.transactions[0].productPurchased.map((data) => (data.title)).join(", "));
       } catch (error) {
          console.log(error)
       }
@@ -108,7 +108,7 @@ const Transaction = () => {
                                  <td style={{width: "5vw"}}>{dataTrans.id}</td>
                                  <td style={{width: "15vw"}}>{dataTrans.users.fullname}</td>
                                  <td style={{width: "10vw"}}>{dataTrans.transferProof}</td>
-                                 <td style={{width: "25vw"}}>{dataTrans.productPurchased}</td>
+                                 <td style={{width: "25vw"}}>{dataTrans.productPurchased.map((data) => (data.title)).join(" | ")}</td>
                                  <td style={{width: "10vw"}}>{"Rp."+dataTrans.paymentTotal}</td>
                                  <td style={{width: "10vw"}} className={
                                     dataTrans.paymentStatus === 'Approve' ? 'text-success': dataTrans.paymentStatus === 'Cancel' ? 'text-danger' : 'text-warning'

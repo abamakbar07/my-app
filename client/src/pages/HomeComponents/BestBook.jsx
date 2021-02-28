@@ -60,7 +60,7 @@ const BestBook = () => {
          ) : (
             <Row className="m-0">
 
-               <Col sm="6">
+               {/* <Col sm="6">
                   <Link to={"/book-detail/"+listBook[bestSelling[0][0] -1].id}>
                      <Card className="border-0">
                         <Row>
@@ -100,7 +100,7 @@ const BestBook = () => {
                         </Row>
                      </Card>
                   </Link>
-               </Col>
+               </Col> */}
 
             </Row>
          )}

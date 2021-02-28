@@ -22,14 +22,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       productPurchased: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Books",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        type: Sequelize.STRING,
       },
       paymentTotal: {
         type: Sequelize.INTEGER,

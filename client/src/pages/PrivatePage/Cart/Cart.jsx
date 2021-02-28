@@ -18,6 +18,8 @@ const Cart = () => {
       file : null,
    })
 
+   console.log(carts)
+
    let i
    let totalPrice = 0
    let bookTitle = []
@@ -29,7 +31,9 @@ const Cart = () => {
       bookId[i] = carts[i].id
    }
 
-   const purchasedProduct = bookTitle.join(", ")
+   const purchasedProduct = bookId
+
+   console.log(purchasedProduct)
 
    const [loading, setLoading] = useState(false)
    const [addTransaction, setAddTransaction] = useState({
@@ -56,6 +60,8 @@ const Cart = () => {
    const onSubmit = async (e) => {
       e.preventDefault()
       try {
+         // await API.get("/transactions")
+
          const form = new FormData();
 
          form.append("users", users);
@@ -71,30 +77,32 @@ const Cart = () => {
          };
 
          const configBookTransaction = {
-         headers: {
-            "Content-Type": "application/json",
-         },
+            headers: {
+               "Content-Type": "application/json",
+            },
          };
 
          setLoading(true);
 
          const transaction = await API.post("/transaction", form, config)
+         
+         // const resultTransaction = transaction.data.data.transaction
 
-         const resultTransaction = transaction.data.data.transaction
-
+         // console.log(resultTransaction)
+         
          let j;
          for (j = 0; j < bookId.length; j++ ) {
             const body = JSON.stringify({
-            idTransaction: resultTransaction.id,
-            idBook: bookId[j]
+               idTransaction: transaction.data.data.transaction.id,
+               idBook: bookId[j]
             });
+            console.log(body)
             const bodyResult = await API.post("/booktransaction", body, configBookTransaction)
             console.log(bodyResult.data.data)
          }
 
          setLoading(false)
 
-         console.log(transaction.data.data.transaction)
 
          setAddTransaction({
             users: "",
