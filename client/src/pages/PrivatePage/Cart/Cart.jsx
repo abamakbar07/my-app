@@ -138,10 +138,13 @@ const Cart = () => {
                               <Card.Body>
                                  <Row className="container">
                                     <Col sm="4">
-                                       <img src={"http://localhost:5000/books/"+product.bookThumbnail} style={{
-                                          width: "10vw",
-                                          height: "auto"
-                                       }}/>
+                                       <img  alt=""
+                                             src={"http://localhost:5000/books/"+product.bookThumbnail}
+                                             style={{
+                                                width: "10vw",
+                                                height: "auto"
+                                             }}
+                                          />
                                     </Col>
                                     <Col sm="6">
                                        <Card.Title>

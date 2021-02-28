@@ -18,7 +18,6 @@ router.get("/check-auth", loginAuth, checkAuth);
 router.get("/user/:id", getUser)
 router.post("/user/edit", uploadProfileImage("profilImage"), editUser)
 router.post("/user/edit-noimage", editUserNoImage);
-// router.patch("/user/:id", uploadProfileImage("profilImage"), editUser)
 
 router.get("/books", getBooks)
 router.get("/book/:id", getBookDetail)

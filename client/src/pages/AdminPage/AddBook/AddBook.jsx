@@ -126,16 +126,16 @@ const AddBook = () => {
                                     Attache thumbnail book
                                  </p>
                                  <div className="">
-                                    <img src={attach} />
+                                    <img alt="" src={attach} />
                                  </div>
                               </div>
                            </label>
                            <input onChange={(e) => onUploadThumbnail(e)} name="bookThumbnail" id="bookThumbnail" type="file" style={{display:"none"}} />
-                           <img
-                              src={previewImage.file}
-                              style={{
-                                 width: "240px"
-                              }} />
+                           <img  alt=""
+                                 src={previewImage.file}
+                                 style={{
+                                    width: "240px"
+                                 }} />
                         </div>
                         <div className="form-group col-md-4 pl-0 pr-0">
                            <label for="bookFile" className="bgTextboxAdd form-control">
@@ -144,7 +144,7 @@ const AddBook = () => {
                                     Attache book file
                                  </p>
                                  <div className="">
-                                    <img src={attach} />
+                                    <img alt="" src={attach} />
                                  </div>
                               </div>
                            </label>

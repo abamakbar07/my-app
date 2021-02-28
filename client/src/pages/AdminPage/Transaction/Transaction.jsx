@@ -1,7 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react'
-import {Button, Dropdown, Table} from 'react-bootstrap'
+import React, { useEffect, useState} from 'react'
+import { Dropdown, Table} from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
-import { AppContext } from '../../../components/context/GlobalContext'
 import { API } from '../../../config/api'
 
 const Transaction = () => {

@@ -21,7 +21,7 @@ const BookDetail = () => {
       setLoading(false)
       let i
       for (i=0; i < carts.length; i++) {
-         if (carts[i].id == id) setAddCart(false)
+         if (carts[i].id === id) setAddCart(false)
       }
       setLoading(true)
    }
