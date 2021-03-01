@@ -23,6 +23,7 @@ const LandingPage = () => {
    const handleClose = () => {
       setLoginModal(false);
       setRegisterModal(false);
+      history.push("/dashboard")
    }
 
    const loginModalDisplay = () => {
@@ -72,7 +73,6 @@ const LandingPage = () => {
                payload: userResult
             })
             setAuthToken(userResult.token);
-            console.log(userResult.token)
             history.push("/admin/transaction");
          } else {
             dispatch({
@@ -81,10 +81,15 @@ const LandingPage = () => {
             });
             history.push("/dashboard");
          }
+
          setAuthToken(userResult.token);
          
       } catch (error) {
          console.log(error)
+         dispatch({
+            type: "LOGIN_FAILED"
+         })
+         setLoginModal(true)
       }
    }
 
@@ -118,19 +123,19 @@ const LandingPage = () => {
 
       const user = await API.post("/register", body, config);
 
-      console.log("Frntend: Register success")
-
       setAuthToken(user.data.data.user.token);
 
       dispatch({
          type: "REGISTER_SUCCESS"
       })
       
-      history.push("/");
-      
     } catch (error) {
+         console.log(error.response.data.message)
          dispatch({
-            type: "REGISTER_SUCCESS"
+            type: "REGISTER_FAILED",
+            payload: {
+               message: error.response.data.message
+            }
          })
     }
   };
@@ -168,7 +173,7 @@ const LandingPage = () => {
                   display: stateModal.modalLogin ? 'block' : 'none'
                }}
          >
-                  <Login statusLogin={loginModalDisplay} submit={(e) => login(e)} change={(e) => onChange(e)} />
+                  <Login statusLogin="" submit={(e) => login(e)} change={(e) => onChange(e)} />
          </div>
 
          <div  className="Signup card modalLoginRegister" 
@@ -180,7 +185,7 @@ const LandingPage = () => {
          </div>
 
          <Modal show={loginModal} onHide={handleClose}>
-            <Modal.Body className={state.isLogin ? "text-success" : "text-danger"}>{state.isLogin ? "Login succesfully!" : "Login Failed"}</Modal.Body>
+            <Modal.Body className={state.loginStatus ? "text-success" : "text-danger"}>{state.loginStatus ? "Login succesfully!" : "Login Failed"}</Modal.Body>
             <Modal.Footer>
                <Button variant="primary" onClick={handleClose}>
                   Ok
@@ -189,7 +194,7 @@ const LandingPage = () => {
          </Modal>
 
          <Modal show={registerModal} onHide={handleClose}>
-            <Modal.Body className={state.registerStatus ? "text-success" : "text-danger"}>{state.registerStatus ? "Your email succesfully registered! Login now!" : "Register Failed"}</Modal.Body>
+            <Modal.Body className={state.registerStatus ? "text-success" : "text-danger"}>{state.registerStatus ? "Your email succesfully registered! Login now!" : `Register Failed! ${state.errorMessage}`}</Modal.Body>
             <Modal.Footer>
                <Button variant="primary" onClick={handleClose}>
                   Ok

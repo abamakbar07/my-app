@@ -3,6 +3,7 @@ import { createContext, useReducer } from "react";
 export const AppContext = createContext();
 
 const initialState = {
+  loginStatus: true,
   isLogin: false,
   isAdmin: false,
   user: null,
@@ -15,6 +16,7 @@ const reducer = (state, action) => {
       localStorage.setItem("token", action.payload.token);
       return {
         ...state,
+        loginStatus: true,
         isAdmin: false,
         isLogin: true,
         user: {
@@ -29,6 +31,7 @@ const reducer = (state, action) => {
       localStorage.setItem("token", action.payload.token);
       return {
         ...state,
+        loginStatus: true,
         isAdmin: true,
         isLogin: false,
         user: {
@@ -64,15 +67,21 @@ const reducer = (state, action) => {
         },
         pageTransaction: true,
       };
+    case "LOGIN_FAILED":
+      return {
+        ...state,
+        loginStatus: false,
+      }
     case "REGISTER_SUCCESS":
       return {
-      ...state,
-      registerStatus: true,
+        ...state,
+        registerStatus: true,
       }
     case "REGISTER_FAILED":
       return {
-      ...state,
-      registerStatus: false,
+        ...state,
+        registerStatus: false,
+        errorMessage: action.payload.message
       }  
     case "AUTH_ERROR":
     case "LOGOUT":
