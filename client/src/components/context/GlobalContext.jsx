@@ -21,9 +21,10 @@ const reducer = (state, action) => {
         isLogin: true,
         user: {
           id: action.payload.id,
-          name: action.payload.name,
+          fullname: action.payload.fullname,
           email: action.payload.email,
-          isAdmin: action.payload.isAdmin
+          isAdmin: action.payload.isAdmin,
+          profilImage: action.payload.profilImage
         },
         loading: false,
       };
@@ -36,9 +37,10 @@ const reducer = (state, action) => {
         isLogin: false,
         user: {
           id: action.payload.id,
-          name: action.payload.name,
+          fullname: action.payload.fullname,
           email: action.payload.email,
-          isAdmin: action.payload.isAdmin
+          isAdmin: action.payload.isAdmin,
+          profilImage: action.payload.profilImage
         },
         loading: false,
         pageTransaction: true,
@@ -50,8 +52,9 @@ const reducer = (state, action) => {
         user: {
           id: action.payload.id,
           email: action.payload.email,
-          fullName: action.payload.fullName,
-          isAdmin: action.payload.isAdmin
+          fullname: action.payload.fullname,
+          isAdmin: action.payload.isAdmin,
+          profilImage: action.payload.profilImage
         },
         loading: false,
       };
@@ -63,7 +66,8 @@ const reducer = (state, action) => {
           id: action.payload.id,
           email: action.payload.email,
           fullname: action.payload.fullname,
-          isAdmin: action.payload.isAdmin
+          isAdmin: action.payload.isAdmin,
+          profilImage: action.payload.profilImage
         },
         pageTransaction: true,
       };
@@ -93,7 +97,7 @@ const reducer = (state, action) => {
         user: {
           id: "",
           email: "",
-          fullName: "",
+          fullname: "",
           isAdmin: "",
         },
         pageTransaction: false,

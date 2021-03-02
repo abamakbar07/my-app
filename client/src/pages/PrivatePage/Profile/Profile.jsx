@@ -7,13 +7,26 @@ import ProfileListBooks from './ProfileListBooks'
 const Profile = (props) => {
    const [state] = useContext(AppContext)
    const [loading, setLoading] = useState(true)
-   const [listTransaction, setListTransaction] = useState([])
+   const [data, setData] = useState(false)
+   const [listBook, setListBook] = useState([])
+   const [idTransaction, setIdTransaction] = useState()
+
+   function sleep(ms) {
+      return new Promise((resolve) => {
+         setTimeout(resolve, ms);
+      });
+   }
 
    const getTransactionUser = async () => {
       try {
          setLoading(true)
+
          const resultTransaction = await API.get("/transaction/"+state.user.id)
-         setListTransaction(resultTransaction.data.data.transaction)
+         setIdTransaction(resultTransaction.data.data.transaction.id)
+         sleep(3000)
+         const resultBookTransaction = await API.get("/booktransaction/"+props.idTransaction);
+         setListBook(resultBookTransaction.data.data.bookTransaction);
+
          setLoading(false)
       } catch (error) {
          console.log(error)
@@ -37,8 +50,8 @@ const Profile = (props) => {
                      </div>
                      <h4 className="MainContent-subTitle text-left font-weight-bold" style={{marginTop: '68px'}}>My List Book</h4>
                      {/* <div className="row"> */}
-                        {/* <ProfileListBooks listTransaction={props.listTransaction} /> */}
-                        <ProfileListBooks listTransaction={listTransaction} />
+                        {/* <ProfileListBooks idTransaction={props.idTransaction} /> */}
+                        <ProfileListBooks idTransaction={idTransaction} listBook={listBook} />
                      {/* </div> */}
                   </div>
                </div>

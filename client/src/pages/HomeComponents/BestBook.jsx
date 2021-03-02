@@ -17,7 +17,7 @@ const BestBook = () => {
          const resultBookBest = await API.get("/booktransactions")
          setBestBook(resultBookBest.data.data.bookTransaction)
 
-         const resultBookList = await API.get("books")
+         const resultBookList = await API.get("/books")
          setListBook(resultBookList.data.data.books)
 
          setLoading(false)      
@@ -46,6 +46,7 @@ const BestBook = () => {
          return b[1] - a[1];
       });
    }
+   
 
    useEffect(() => {
       getBestBook()
@@ -60,7 +61,7 @@ const BestBook = () => {
          ) : (
             <Row className="m-0">
 
-               {/* <Col sm="6">
+               <Col sm="6">
                   <Link to={"/book-detail/"+listBook[bestSelling[0][0] -1].id}>
                      <Card className="border-0">
                         <Row>
@@ -100,7 +101,7 @@ const BestBook = () => {
                         </Row>
                      </Card>
                   </Link>
-               </Col> */}
+               </Col>
 
             </Row>
          )}

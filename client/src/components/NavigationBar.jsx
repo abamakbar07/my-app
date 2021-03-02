@@ -15,6 +15,9 @@ const NavigationBar = (props) => {
    const [stateModal, dispatchModal] = useContext(ModalContext)
    const [state, dispatch] = useContext(AppContext)
    const [pageAdmin, setPageAdmin] = useState(true)
+   const [profilImage, setProfilImage] = useState(null)
+
+   const [loading, setLoading] = useState(true)
 
    const changePageAdmin = () => {
       setPageAdmin(!pageAdmin)
@@ -45,6 +48,13 @@ const NavigationBar = (props) => {
    const isAdmin = props.isAdmin
    const isLogin = props.isLogin
 
+   if (loading) {  
+      if (props.user) {
+         setProfilImage(props.user.profilImage)
+         setLoading(false)
+      }
+   }
+   
    return (
       <div className="navBar">
          <Navbar className="justify-content-between bg-transparent pt-3">
@@ -70,7 +80,14 @@ const NavigationBar = (props) => {
 
                <Dropdown className="ml-3 mr-3">
                   <Dropdown.Toggle className="bg-transparent border-0">
-                     <Card.Img className="rounded-circle mr-3 ml-3" src={profileDefault} style={{height: "50px", width:"50px", border: "3px solid black"}} />
+                     <Card.Img   className="rounded-circle mr-3 ml-3" 
+                                 src={profilImage === null ? profileDefault : "http://localhost:5000/profiles/"+profilImage} 
+                                 style={{
+                                    height: "50px", 
+                                    width:"50px", 
+                                    border: "3px solid black"
+                                    }}
+                                 />
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>

@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
+
 import { AppContext } from '../../../components/context/GlobalContext';
 import { API } from '../../../config/api';
 
@@ -43,6 +44,7 @@ const ProfileDetail = () => {
    const handleClose = () => {
       setShow(false);
       setEditButton(false);
+      user()
    }
    
    const onEdit = (e) => {
@@ -253,15 +255,31 @@ const ProfileDetail = () => {
                            <Form.Group>
                               <div>
                                  <label for="profilImage">
-                                    <img  className={preview ? "d-none" : ""}
-                                          src={editProfil.profilImage === null ? profileDefault : "http://localhost:5000/profiles/"+editProfil.profilImage}
-                                          style={{
-                                             width: "15vw",
-                                             marginLeft: "auto",
-                                             marginRight: "auto",
-                                             filter: "brightness(75%)"
-                                             }}
-                                          />
+                                    <div style={{
+                                       position: "relative",
+                                       textAlign: "center",
+                                       color: "white"
+                                    }}>
+                                       <img  className={preview ? "d-none" : ""}
+                                             src={editProfil.profilImage === null ? profileDefault : "http://localhost:5000/profiles/"+editProfil.profilImage}
+                                             style={{
+                                                width: "15vw",
+                                                marginLeft: "auto",
+                                                marginRight: "auto",
+                                                filter: "brightness(75%)"
+                                                }}
+                                             />
+                                       <div style={{
+                                          fontWeight: "500",
+                                          border: "5px",
+                                          position: "absolute",
+                                          top: "50%",
+                                          left: "50%",
+                                          transform: "translate(-50%, -50%)"
+                                       }}>
+                                          Upload File
+                                       </div>
+                                    </div>
                                     <img  className={preview ? "" : "d-none"}
                                           src={previewImage.file}
                                           style={{

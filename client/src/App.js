@@ -63,7 +63,11 @@ const App = () => {
       <CartContextProvider>
           <Router>
             <div className="App">
-              <NavigationBar isAdmin={state.isAdmin} isLogin={state.isLogin} pageTransaction={state.pageTransaction} />
+              <NavigationBar  isAdmin={state.isAdmin} 
+                              isLogin={state.isLogin} 
+                              pageTransaction={state.pageTransaction}
+                              user={state.user}
+                            />
               <Switch>
                 <Route path="/" exact component={LandingPage} />
                 <PrivateRoute path="/dashboard" exact component={Dashboard} />
