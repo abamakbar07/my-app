@@ -63,7 +63,7 @@ const BestBook = () => {
 
                <Col sm="6">
                   <Link to={"/book-detail/"+listBook[bestSelling[0][0] -1].id}>
-                     <Card className="border-0">
+                     <Card className="border-0" style={{boxShadow: "2px 2px 4px #00000022"}}>
                         <Row>
                            <Col md="4">
                               <Card.Img src={"http://localhost:5000/books/"+listBook[bestSelling[0][0] -1].bookThumbnail} style={{display: "flex", maxWidth: "15vw"}} />
@@ -92,7 +92,7 @@ const BestBook = () => {
 
                <Col sm="6">
                   <Link to={"/book-detail/"+listBook[bestSelling[1][0] -1].id}>
-                     <Card className="border-0">
+                     <Card className="border-0" style={{boxShadow: "2px 2px 4px #00000022"}}>
                         <Row>
                            <Col md="4">
                               <Card.Img src={"http://localhost:5000/books/"+listBook[bestSelling[1][0] -1].bookThumbnail} style={{display: "flex", maxWidth: "15vw"}} />

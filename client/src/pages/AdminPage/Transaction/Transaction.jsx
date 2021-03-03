@@ -84,10 +84,10 @@ const Transaction = () => {
                            <tr className=" text-danger">
                               <th style={{width: "5vw"}}>No</th>
                               <th style={{width: "15vw"}}>Users</th>
-                              <th style={{width: "10vw"}}>Bukti Transfer</th>
-                              <th style={{width: "25vw"}}>Buku</th>
-                              <th style={{width: "10vw"}}>Total Pembayaran</th>
-                              <th style={{width: "10vw"}}>Status Pembayaran</th>
+                              <th style={{width: "10vw"}}>Evidence of Transfer</th>
+                              <th style={{width: "25vw"}}>Product Purchased</th>
+                              <th style={{width: "10vw"}}>Total Payment</th>
+                              <th style={{width: "10vw"}}>Status Payment</th>
                               <th style={{width: "5vw"}}>Action</th>
                            </tr>
                         </thead>
@@ -104,9 +104,9 @@ const Transaction = () => {
                            overflowX: "hidden"
                         }}>
 
-                           {data.map((dataTrans) => (   
+                           {data.map((dataTrans, index) => (   
                               <tr className="" key={dataTrans.id}>
-                                 <td style={{width: "5vw"}}>{dataTrans.id}</td>
+                                 <td style={{width: "5vw"}}>{index + 1}</td>
                                  <td style={{width: "15vw"}}>{dataTrans.users.fullname}</td>
                                  <td style={{width: "10vw"}}>{dataTrans.transferProof}</td>
                                  <td style={{width: "25vw"}}>{dataTrans.productPurchased.map((data) => (data.title)).join(" | ")}</td>
