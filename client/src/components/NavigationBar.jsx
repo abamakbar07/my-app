@@ -19,6 +19,8 @@ const NavigationBar = (props) => {
 
    const [loading, setLoading] = useState(true)
 
+   console.log(profilImage)
+
    const changePageAdmin = () => {
       setPageAdmin(!pageAdmin)
    }
@@ -81,7 +83,7 @@ const NavigationBar = (props) => {
                <Dropdown className="ml-3 mr-3">
                   <Dropdown.Toggle className="bg-transparent border-0">
                      <Card.Img   className="rounded-circle mr-3 ml-3" 
-                                 src={profilImage === null ? profileDefault : "http://localhost:5000/profiles/"+profilImage} 
+                                 src={!profilImage ? profileDefault : "http://localhost:5000/profiles/"+profilImage} 
                                  style={{
                                     height: "50px", 
                                     width:"50px", 

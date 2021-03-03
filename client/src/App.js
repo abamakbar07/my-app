@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import './App.css';
@@ -31,6 +31,22 @@ if (localStorage.token) {
 
 const App = () => {
   const [state, dispatch] = useContext(AppContext)
+  const [style, setStyle] = useState({
+    textAlign: "center",
+    backgroundAttachment: "fixed",
+    backgroundBlendMode: "normal",
+    backgroundSize: "auto",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center top",
+    backgroundColor: "#f3f3f3",
+  });
+
+  const styleBookDetail = () => {
+    setStyle({
+      ...state,
+      backgroundBlendMode: "multiply"
+    });
+  }
 
   const checkUser = async () => {
     try {
@@ -61,32 +77,34 @@ const App = () => {
   return (
     <ModalContextProvider>
       <CartContextProvider>
-          <Router>
-            <div className="App">
-              <NavigationBar  isAdmin={state.isAdmin} 
-                              isLogin={state.isLogin} 
-                              pageTransaction={state.pageTransaction}
-                              user={state.user}
-                            />
-              <Switch>
-                <Route path="/" exact component={LandingPage} />
-                <PrivateRoute path="/dashboard" exact component={Dashboard} />
-                <PrivateRoute path="/profile" exact component={Profile} />
-                <PrivateRoute
-                  path="/book-detail/:id"
-                  exact
-                  component={BookDetail}
-                />
-                <PrivateRoute path="/cart" exact component={Cart} />
-                <AdminRoute
-                  path="/admin/transaction"
-                  exact
-                  component={Transaction}
-                />
-                <AdminRoute path="/admin/add-book" exact component={AddBook} />
-              </Switch>
-            </div>
-          </Router>
+        <Router>
+          <div className="App" style={style}>
+            <Switch>
+              <Route path="/" exact component={LandingPage} />
+              <PrivateRoute path="/dashboard" exact component={Dashboard} />
+              <PrivateRoute path="/profile" exact component={Profile} />
+              <PrivateRoute
+                path="/book-detail/:id"
+                exact
+                component={BookDetail}
+              />
+              <PrivateRoute path="/cart" exact component={Cart} />
+              <AdminRoute
+                path="/admin/transaction"
+                exact
+                component={Transaction}
+              />
+              <AdminRoute path="/admin/add-book" exact component={AddBook} />
+            </Switch>
+            <NavigationBar
+              className="appNavbar"
+              isAdmin={state.isAdmin}
+              isLogin={state.isLogin}
+              pageTransaction={state.pageTransaction}
+              user={state.user}
+            />
+          </div>
+        </Router>
       </CartContextProvider>
     </ModalContextProvider>
   );

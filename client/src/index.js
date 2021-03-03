@@ -7,7 +7,7 @@ import { AppContextProvider } from './components/context/GlobalContext'
 
 ReactDOM.render(
   <AppContextProvider>
-    <App />
+      <App />
   </AppContextProvider>,
   document.getElementById('root')
 );

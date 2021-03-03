@@ -74,6 +74,14 @@ const BestBook = () => {
                                  <Card.Text style={{whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"}}>
                                     {listBook[bestSelling[0][0] -1].about}
                                  </Card.Text>
+                                 <Card.Text  className="text-success" 
+                                             style={{
+                                                fontFamily: "Avenir",
+                                                fontStyle: "normal",
+                                                fontWeight: "700"
+                                             }}>
+                                    {("Rp. "+listBook[bestSelling[0][0] -1].price)}
+                                 </Card.Text>
 
                               </Card.Body>
                            </Col>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react'
-import { Dropdown, Table} from 'react-bootstrap'
+import { Dropdown, Table, Spinner } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import { API } from '../../../config/api'
 
@@ -20,10 +20,10 @@ const Transaction = () => {
          };
          await API.patch("/transaction/"+id, body, config )
 
-         getTransaction()
          setLoading(false)
-
-         history.push("/")
+         
+         getTransaction()
+         // history.push("/")
          
       } catch (error) {
          console.log(error)
@@ -42,10 +42,10 @@ const Transaction = () => {
          };
          await API.patch("/transaction/"+id, body, config )
 
-         getTransaction()
          setLoading(false)
          
-         history.push("/")
+         getTransaction()
+         // history.push("/")
          
       } catch (error) {
          console.log(error)
@@ -58,7 +58,6 @@ const Transaction = () => {
          const transactions = await API.get("/transactions");
          setLoading(false);
          setData(transactions.data.data.transactions);
-         console.log(transactions.data.data.transactions[0].productPurchased.map((data) => (data.title)).join(", "));
       } catch (error) {
          console.log(error)
       }
@@ -69,8 +68,8 @@ const Transaction = () => {
   }, []);
 
    return (
-      <div>
-         <div className="">
+      <div className="pt-5">
+         <div className="pt-5">
             <div className="container pl-5 pr-5"  style={{paddingTop: "5vh" }}>
                <div className="row">
                   <div className="col-md-12">
@@ -94,7 +93,9 @@ const Transaction = () => {
                         </thead>
 
                         {loading ? (
-                           <h3>Loading dulu gaes</h3>
+                              <div className="container text-center p-5 m-5">
+                                 <Spinner animation="border" role="status"></Spinner>
+                              </div>
                         ) : (
                            <tbody style={{
                            display: "block",

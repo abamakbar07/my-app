@@ -35,7 +35,6 @@ const BookDetail = () => {
          setBooksResult(books.data.data.books);
          
          setLoading(false);
-
       } catch (error) {
          console.log(error)
       }
@@ -61,93 +60,95 @@ const BookDetail = () => {
    }, []);
 
    return (
-      <div>
+      <div className="BookDetail">
       {loading ? (
          <h1>Loading dulu gaes</h1>
       ) : ( 
-         <Card body className="border-0 bg-transparent" style={{zIndex: "1"}}>
-            <div className="row">
-               <div className="col-md-4">
-                  <ListGroup>
-                     <img alt="" src={"http://localhost:5000/books/"+bookResult.bookThumbnail} style={{width: "100%"}} />
-                  </ListGroup>
+         <div className="BookDetail-container">
+            <Card body className="border-0 bg-transparent" style={{zIndex: "1"}}>
+               <div className="row">
+                  <div className="col-md-4">
+                     <ListGroup>
+                        <img alt="" src={"http://localhost:5000/books/"+bookResult.bookThumbnail} style={{width: "100%"}} />
+                     </ListGroup>
+                  </div>
+
+                  <div className="col-md-8">
+                     <ListGroup horizontal>
+                        <ListGroup.Item className="text-left border-0 bg-transparent">
+                           <p className="BookDetail-title m-0 font-weight-bold">
+                              {bookResult.title}
+                           </p>
+                           <small className="text-muted">
+                              {bookResult.author}
+                           </small>
+                        </ListGroup.Item>
+                     </ListGroup>
+                     <ListGroup horizontal>
+                        <ListGroup.Item className="text-left border-0 bg-transparent mt-3">
+                           <p className="m-0 font-weight-bold">
+                              Publication date
+                           </p>
+                           <small className="text-muted">
+                              {bookResult.publicationDate}
+                           </small>
+                        </ListGroup.Item>
+                     </ListGroup>
+                     <ListGroup horizontal>
+                        <ListGroup.Item className="text-left border-0 bg-transparent">
+                           <p className="m-0 font-weight-bold">
+                              Pages
+                           </p>
+                           <small className="text-muted">
+                              {bookResult.pages}
+                           </small>
+                        </ListGroup.Item>
+                     </ListGroup>
+                     <ListGroup horizontal>
+                        <ListGroup.Item className="text-left border-0 bg-transparent">
+                           <p className="m-0 font-weight-bold text-danger">
+                              ISBN
+                           </p>
+                           <small className="text-muted">
+                              {bookResult.isbn}
+                           </small>
+                        </ListGroup.Item>
+                     </ListGroup>
+                     <ListGroup horizontal>
+                        <ListGroup.Item className="text-left border-0 bg-transparent">
+                           <p className="m-0 font-weight-bold text-success">
+                              Price
+                           </p>
+                           <small className="text-muted">
+                              {"Rp. "+bookResult.price}
+                           </small>
+                        </ListGroup.Item>
+                     </ListGroup>
+                  </div>
                </div>
 
-               <div className="col-md-8">
-                  <ListGroup horizontal>
-                     <ListGroup.Item className="text-left border-0 bg-transparent">
-                        <p className="BookDetail-title m-0 font-weight-bold">
-                           {bookResult.title}
-                        </p>
-                        <small className="text-muted">
-                           {bookResult.author}
-                        </small>
-                     </ListGroup.Item>
-                  </ListGroup>
-                  <ListGroup horizontal>
-                     <ListGroup.Item className="text-left border-0 bg-transparent mt-3">
-                        <p className="m-0 font-weight-bold">
-                           Publication date
-                        </p>
-                        <small className="text-muted">
-                           {bookResult.publicationDate}
-                        </small>
-                     </ListGroup.Item>
-                  </ListGroup>
-                  <ListGroup horizontal>
-                     <ListGroup.Item className="text-left border-0 bg-transparent">
-                        <p className="m-0 font-weight-bold">
-                           Pages
-                        </p>
-                        <small className="text-muted">
-                           {bookResult.pages}
-                        </small>
-                     </ListGroup.Item>
-                  </ListGroup>
-                  <ListGroup horizontal>
-                     <ListGroup.Item className="text-left border-0 bg-transparent">
-                        <p className="m-0 font-weight-bold text-danger">
-                           ISBN
-                        </p>
-                        <small className="text-muted">
-                           {bookResult.isbn}
-                        </small>
-                     </ListGroup.Item>
-                  </ListGroup>
-                  <ListGroup horizontal>
-                     <ListGroup.Item className="text-left border-0 bg-transparent">
-                        <p className="m-0 font-weight-bold text-success">
-                           Price
-                        </p>
-                        <small className="text-muted">
-                           {"Rp. "+bookResult.price}
-                        </small>
-                     </ListGroup.Item>
-                  </ListGroup>
+               <div className="row mt-5 mb-5">
+                  <div className="col-sm-12">
+                     <p className="BookDetail-aboutTitle text-left">About This Book</p>
+                     <p className="BookDetail-aboutSub text-left">
+                        {bookResult.about}
+                     </p>
+                  </div>
                </div>
-            </div>
 
-            <div className="row mt-5 mb-5">
-               <div className="col-sm-12">
-                  <p className="BookDetail-aboutTitle text-left">About This Book</p>
-                  <p className="BookDetail-aboutSub text-left">
-                     {bookResult.about}
-                  </p>
+               <div className={loading ? "d-false" : "row"}>
+                  <div className="col-sm-12 text-right">
+                     <Link to="/cart" className={addCart ? "" : "d-none"}>
+                        <button onClick={() => addProductToCart(bookResult.id)} className="btn globalButtonNoRound m-1">Add To Cart<img alt="" className="ml-2" src={iconBookmark} /></button>
+                        {/* <button className="btn btn-danger m-1">Add To Cart<img alt="" className="ml-2" src={iconBookmark} /></button> */}
+                     </Link>
+                     <Link className={addCart ? "d-none" : ""}>
+                        <button className="btn btn-light m-1" style={{background: "rgba(205, 205, 205, 0.7)"}}>Book Added</button>
+                     </Link>
+                  </div>
                </div>
-            </div>
-
-            <div className={loading ? "d-false" : "row"}>
-               <div className="col-sm-12 text-right">
-                  <Link to="/cart" className={addCart ? "" : "d-none"}>
-                     <button onClick={() => addProductToCart(bookResult.id)} className="btn globalButtonNoRound m-1">Add To Cart<img alt="" className="ml-2" src={iconBookmark} /></button>
-                     {/* <button className="btn btn-danger m-1">Add To Cart<img alt="" className="ml-2" src={iconBookmark} /></button> */}
-                  </Link>
-                  <Link className={addCart ? "d-none" : ""}>
-                     <button className="btn btn-light m-1" style={{background: "rgba(205, 205, 205, 0.7)"}}>Book Added</button>
-                  </Link>
-               </div>
-            </div>
-         </Card>
+            </Card>
+         </div>
       )}
       </div>
    )

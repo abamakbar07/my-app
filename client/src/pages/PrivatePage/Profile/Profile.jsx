@@ -7,26 +7,24 @@ import ProfileListBooks from './ProfileListBooks'
 const Profile = (props) => {
    const [state] = useContext(AppContext)
    const [loading, setLoading] = useState(true)
-   const [data, setData] = useState(false)
-   const [listBook, setListBook] = useState([])
+
    const [idTransaction, setIdTransaction] = useState()
-
-   function sleep(ms) {
-      return new Promise((resolve) => {
-         setTimeout(resolve, ms);
-      });
-   }
-
+   
+   const [listBook, setListBook] = useState([])
+   
+   console.log(idTransaction)
+   console.log(listBook)
+   
    const getTransactionUser = async () => {
       try {
          setLoading(true)
-
+         
          const resultTransaction = await API.get("/transaction/"+state.user.id)
          setIdTransaction(resultTransaction.data.data.transaction.id)
-         sleep(3000)
-         const resultBookTransaction = await API.get("/booktransaction/"+props.idTransaction);
-         setListBook(resultBookTransaction.data.data.bookTransaction);
 
+         const resultBookTransaction = await API.get("/booktransaction/"+idTransaction)
+         setListBook(resultBookTransaction.data.data.bookTransaction)
+         
          setLoading(false)
       } catch (error) {
          console.log(error)
@@ -35,6 +33,7 @@ const Profile = (props) => {
 
    useEffect(() => {
       getTransactionUser()
+      console.log(idTransaction, listBook)
    }, [])
 
    return (

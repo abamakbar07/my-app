@@ -13,11 +13,11 @@ const { uploadTransactionProof } = require("../middlewares/uploadTransaction");
 
 router.post("/register", register)
 router.post("/login", login)
-router.get("/check-auth", loginAuth, checkAuth);
+router.get("/check-auth", loginAuth, checkAuth)
 
 router.get("/user/:id", getUser)
 router.post("/user/edit", uploadProfileImage("profilImage"), editUser)
-router.post("/user/edit-noimage", editUserNoImage);
+router.post("/user/edit-noimage", editUserNoImage)
 
 router.get("/books", getBooks)
 router.get("/book/:id", getBookDetail)
@@ -25,11 +25,11 @@ router.post("/book", uploadBookNew("bookThumbnail", "bookFile"), addBook)
 
 router.get("/transactions", getTransactions)
 router.get("/transaction/:idUser", getTransaction)
-router.patch("/transaction/:id", editTransaction);
+router.patch("/transaction/:id", editTransaction)
 router.post("/transaction", uploadTransactionProof("transferProof"), addTransaction)
 
-router.get("/booktransactions", getBookTransactions);
-router.get("/booktransaction/:idTransaction", getBookTransaction);
-router.post("/booktransaction", addBookTransaction);
+router.get("/booktransactions", getBookTransactions)
+router.get("/booktransaction/:idTransaction", getBookTransaction)
+router.post("/booktransaction", addBookTransaction)
 
 module.exports = router;

@@ -5,15 +5,16 @@ import { API } from '../../../config/api'
 
 const ProfileListBooks = (props) => {
    const [loading, setLoading] = useState(false)
-   const [listBook, setListBook] = useState([])
+   const [listBook, setListBook] = useState(props.listBook)
 
    function sleep(ms) {
       return new Promise((resolve) => {
          setTimeout(resolve, ms);
       });
    }
-
+   
    console.log(props.listBook)
+   console.log(props.idTransaction)
 
    const getBookTransactionUser = async () => {
       try {
@@ -36,13 +37,14 @@ const ProfileListBooks = (props) => {
                   <div className="container text-center p-5 m-5">
                      <Spinner animation="border" role="status"></Spinner>
                   </div>
-               ) : listBook.length < 1 ?  ( 
+               ) : listBook.length < 1 ? ( 
                   <div className="container text-center">
                      Anda belum memilih buku
                   </div> ) : (
                <Row>
                   {listBook.map((bookTransaction) => (
                      <Col sm="4">
+                        
                            <a href={bookTransaction.idTransaction.paymentStatus === "Approve" ? "http://localhost:5000/books/"+bookTransaction.idBook.bookFile : ""}>
                               {/* <Card onClick={() => getbook(bookList.id)} className=" bg-transparent border-0"> */}
                               <Card className=" bg-transparent border-0">
