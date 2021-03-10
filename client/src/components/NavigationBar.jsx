@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Navbar, Button, Dropdown, Card } from 'react-bootstrap'
 
 import logo from '../assets/logo.png'
@@ -12,13 +12,10 @@ import { ModalContext } from './context/ModalContext'
 import { AppContext } from './context/GlobalContext'
 
 const NavigationBar = (props) => {
-   const history = useHistory()
    const [stateModal, dispatchModal] = useContext(ModalContext)
    const [state, dispatch] = useContext(AppContext)
    const [pageAdmin, setPageAdmin] = useState(true)
    const [profilImage, setProfilImage] = useState(profileDefault)
-
-   const [loading, setLoading] = useState(true)
 
    const changePageAdmin = () => {
       setPageAdmin(!pageAdmin)
@@ -48,16 +45,16 @@ const NavigationBar = (props) => {
 
    const isAdmin = props.isAdmin
    const isLogin = props.isLogin
-   console.log(profilImage)
 
    useEffect(() => {
       if (!state.user) {
          setProfilImage(profileDefault)
       } else {
-         console.log(state.user)
-         setProfilImage(
-           "http://localhost:5000/profiles/" + props.user.profilImage
-         );
+         state.user.profilImage
+           ? setProfilImage(
+               "http://localhost:5000/profiles/" + props.user.profilImage
+             )
+           : setProfilImage(profileDefault);
       }
       console.log(state)
    }, [state])
