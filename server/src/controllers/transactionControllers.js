@@ -169,7 +169,7 @@ exports.getTransactions = async (req, res) => {
             id: bookPurchased[j]
           },
           attributes : {
-            exclude: ["createdAt", "updatedAt"]
+            exclude: ["createdAt", "updatedAt", "about", "publicationDate", "pages", "author", "isbn"]
           }
         })
         

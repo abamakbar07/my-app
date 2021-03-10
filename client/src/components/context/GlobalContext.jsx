@@ -99,6 +99,7 @@ const reducer = (state, action) => {
           email: "",
           fullname: "",
           isAdmin: "",
+          profilImage: "",
         },
         pageTransaction: false,
       };

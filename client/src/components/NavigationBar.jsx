@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { Navbar, Button, Dropdown, Card } from 'react-bootstrap'
 
 import logo from '../assets/logo.png'
@@ -12,14 +12,13 @@ import { ModalContext } from './context/ModalContext'
 import { AppContext } from './context/GlobalContext'
 
 const NavigationBar = (props) => {
+   const history = useHistory()
    const [stateModal, dispatchModal] = useContext(ModalContext)
    const [state, dispatch] = useContext(AppContext)
    const [pageAdmin, setPageAdmin] = useState(true)
-   const [profilImage, setProfilImage] = useState(null)
+   const [profilImage, setProfilImage] = useState(profileDefault)
 
    const [loading, setLoading] = useState(true)
-
-   console.log(profilImage)
 
    const changePageAdmin = () => {
       setPageAdmin(!pageAdmin)
@@ -49,13 +48,19 @@ const NavigationBar = (props) => {
 
    const isAdmin = props.isAdmin
    const isLogin = props.isLogin
+   console.log(profilImage)
 
-   if (loading) {  
-      if (props.user) {
-         setProfilImage(props.user.profilImage)
-         setLoading(false)
+   useEffect(() => {
+      if (!state.user) {
+         setProfilImage(profileDefault)
+      } else {
+         console.log(state.user)
+         setProfilImage(
+           "http://localhost:5000/profiles/" + props.user.profilImage
+         );
       }
-   }
+      console.log(state)
+   }, [state])
    
    return (
       <div className="navBar">
@@ -83,7 +88,7 @@ const NavigationBar = (props) => {
                <Dropdown className="ml-3 mr-3">
                   <Dropdown.Toggle className="bg-transparent border-0">
                      <Card.Img   className="rounded-circle mr-3 ml-3" 
-                                 src={!profilImage ? profileDefault : "http://localhost:5000/profiles/"+profilImage} 
+                                 src={profilImage} 
                                  style={{
                                     height: "50px", 
                                     width:"50px", 

@@ -81,12 +81,12 @@ const BookDetail = () => {
       {loading ? (
          <h1>Loading dulu gaes</h1>
       ) : ( 
-         <Carousel fade activeIndex={index} onSelect={handleSelect} indicators={false}>
+         <div className="BookDetail-container">
+         <Carousel fade activeIndex={index} onSelect={handleSelect} indicators={false} style={{zIndex: "1", padding: "0vw 5vw"}}>
             {booksResult.map((book) => (
 
                <Carousel.Item data-interval={false}>
-                  <div className="BookDetail-container">
-                     <Card body className="border-0 bg-transparent" style={{zIndex: "1"}}>
+                     <Card body className="border-0 bg-transparent">
                         <div className="row">
                            <div className="col-md-4">
                               <ListGroup>
@@ -168,11 +168,11 @@ const BookDetail = () => {
                            </div>
                         </div>
                      </Card>
-                  </div>
 
                </Carousel.Item>
                ))}
          </Carousel>
+         </div>
       )}
       </div>
    )

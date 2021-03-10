@@ -129,7 +129,7 @@ exports.login = async (req, res) => {
          //  gender: user.gender,
          //  phone: user.phone,
          //  address: user.address,
-         //  profilImage: user.profilImage,
+          profilImage: user.profilImage,
           token,
         },
       },

@@ -18,8 +18,6 @@ const Cart = () => {
       file : null,
    })
 
-   console.log(carts)
-
    let i
    let totalPrice = 0
    let bookTitle = []
@@ -32,8 +30,6 @@ const Cart = () => {
    }
 
    const purchasedProduct = bookId
-
-   console.log(purchasedProduct)
 
    const [loading, setLoading] = useState(false)
    const [addTransaction, setAddTransaction] = useState({

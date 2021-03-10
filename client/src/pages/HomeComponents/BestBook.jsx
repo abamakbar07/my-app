@@ -47,7 +47,6 @@ const BestBook = () => {
       });
    }
    
-
    useEffect(() => {
       getBestBook()
    }, [])
@@ -66,11 +65,18 @@ const BestBook = () => {
                      <Card className="border-0" style={{boxShadow: "2px 2px 4px #00000022"}}>
                         <Row>
                            <Col md="4">
-                              <Card.Img src={"http://localhost:5000/books/"+listBook[bestSelling[0][0] -1].bookThumbnail} style={{display: "flex", maxWidth: "15vw"}} />
+                              <Card.Img src={"http://localhost:5000/books/"+listBook[bestSelling[0][0] -1].bookThumbnail} style={{display: "flex", maxWidth: "15vw", maxHeight: "35vh"}} />
                            </Col>
                            <Col md="8" style={{color: "black"}}>
                               <Card.Body className="text-left">
-                                 <Card.Title>{listBook[bestSelling[0][0] -1].title}</Card.Title>
+                                 <Card.Title>
+                                    {listBook[bestSelling[0][0] - 1].title}
+                                 </Card.Title>
+                                 <Card.Text>
+                                    <small className="text-muted">
+                                       {listBook[bestSelling[0][0] -1].author}
+                                    </small>
+                                 </Card.Text>
                                  <Card.Text style={{whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"}}>
                                     {listBook[bestSelling[0][0] -1].about}
                                  </Card.Text>
@@ -80,7 +86,7 @@ const BestBook = () => {
                                                 fontStyle: "normal",
                                                 fontWeight: "700"
                                              }}>
-                                    {("Rp. "+listBook[bestSelling[0][0] -1].price)}
+                                    {("Rp. "+listBook[bestSelling[0][0] - 1].price)}
                                  </Card.Text>
 
                               </Card.Body>
@@ -95,13 +101,28 @@ const BestBook = () => {
                      <Card className="border-0" style={{boxShadow: "2px 2px 4px #00000022"}}>
                         <Row>
                            <Col md="4">
-                              <Card.Img src={"http://localhost:5000/books/"+listBook[bestSelling[1][0] -1].bookThumbnail} style={{display: "flex", maxWidth: "15vw"}} />
+                              <Card.Img src={"http://localhost:5000/books/"+listBook[bestSelling[1][0] -1].bookThumbnail} style={{display: "flex", maxWidth: "15vw", maxHeight: "35vh"}} />
                            </Col>
                            <Col md="8" style={{color: "black"}}>
                               <Card.Body className="text-left">
-                                 <Card.Title>{listBook[bestSelling[1][0] -1].title}</Card.Title>
+                                 <Card.Title>
+                                    {listBook[bestSelling[1][0] - 1].title}
+                                 </Card.Title>
+                                 <Card.Text>
+                                    <small className="text-muted">
+                                       {listBook[bestSelling[1][0] -1].author}
+                                    </small>
+                                 </Card.Text>
                                  <Card.Text style={{whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"}}>
                                     {listBook[bestSelling[1][0] -1].about}
+                                 </Card.Text>
+                                 <Card.Text  className="text-success" 
+                                             style={{
+                                                fontFamily: "Avenir",
+                                                fontStyle: "normal",
+                                                fontWeight: "700"
+                                             }}>
+                                    {("Rp. "+listBook[bestSelling[1][0] - 1].price)}
                                  </Card.Text>
 
                               </Card.Body>

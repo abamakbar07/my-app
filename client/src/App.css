@@ -275,7 +275,7 @@
 }
 
 .BookDetail-container {
-  padding: 5rem;
+  padding: 5rem 0rem;
 }
 
 .ProfileDetail .card {
@@ -432,4 +432,26 @@
   position: absolute !important;
   top: 0 !important;
   width: -webkit-fill-available !important;
+}
+
+.carousel-control-prev {
+  /* padding: 5vw !important; */
+  width: 5vw !important;
+}
+
+.carousel-control-next {
+  /* padding: 5vw !important; */
+  width: 5vw !important;
+}
+
+.carousel-control-prev-icon {
+  width: 2rem !important;
+  height: 2rem !important;
+  background-image: url('./assets/icon/prevButton.png') !important;
+}
+
+.carousel-control-next-icon {
+  width: 2rem !important;
+  height: 2rem !important;
+  background-image: url('./assets/icon/nextButton.png') !important;
 }
