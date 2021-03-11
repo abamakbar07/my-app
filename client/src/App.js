@@ -103,9 +103,6 @@ const App = () => {
               pageTransaction={state.pageTransaction}
               user={state.user}
             />
-            {/* <pre>
-              {JSON.stringify(state.user)}
-            </pre> */}
           </div>
         </Router>
       </CartContextProvider>

@@ -1,34 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Card, Row, Col, Button, Spinner } from 'react-bootstrap';
+import { AppContext } from '../../../components/context/GlobalContext';
 
-import { API } from '../../../config/api'
-
-const ProfileListBooks = (props) => {
+const ProfileListBooks = () => {
+   const [state] = useContext(AppContext)
    const [loading, setLoading] = useState(false)
-   const [listBook, setListBook] = useState(props.listBook)
-
-   function sleep(ms) {
-      return new Promise((resolve) => {
-         setTimeout(resolve, ms);
-      });
-   }
-   
-   console.log(props.listBook)
-   console.log(props.idTransaction)
-
-   const getBookTransactionUser = async () => {
-      try {
-         setLoading(true);
-         setListBook(props.listBook)
-         setLoading(false)
-      } catch (error) {
-         console.log(error)
-      }
-   }
-
-   useEffect(() => {
-      getBookTransactionUser()
-   }, [])
+   const listBook = state.userBookList
 
    return (
       <div>
@@ -42,22 +19,22 @@ const ProfileListBooks = (props) => {
                      Anda belum memilih buku
                   </div> ) : (
                <Row>
-                  {listBook.map((bookTransaction) => (
+                  {listBook.map((book) => (
                      <Col sm="4">
                         
-                           <a href={bookTransaction.idTransaction.paymentStatus === "Approve" ? "http://localhost:5000/books/"+bookTransaction.idBook.bookFile : ""}>
+                           <a href={book.idTransaction.paymentStatus === "Approve" ? "http://localhost:5000/books/"+book.idBook.bookFile : ""}>
                               {/* <Card onClick={() => getbook(bookList.id)} className=" bg-transparent border-0"> */}
                               <Card className=" bg-transparent border-0">
-                                 <Card.Img variant="top" src={"http://localhost:5000/books/"+bookTransaction.idBook.bookThumbnail} style={{width: "10vw", height: "30vh"}} />
+                                 <Card.Img variant="top" src={"http://localhost:5000/books/"+book.idBook.bookThumbnail} style={{width: "10vw", height: "30vh"}} />
                                  <Card.Body className="text-left p-0 pt-2">
                                     <Card.Title className="ListBooks-title" >
-                                       {bookTransaction.idBook.title}
+                                       {book.idBook.title}
                                     </Card.Title>
                                     <Card.Text className="text-muted">
-                                       {bookTransaction.idBook.author}
+                                       {book.idBook.author}
                                     </Card.Text>
-                                    <Button className={bookTransaction.idTransaction.paymentStatus === "Pending" ? "disabled" : ""}>
-                                       {bookTransaction.idTransaction.paymentStatus === "Pending" ? "Transaction on process" : "Download" }
+                                    <Button className={book.idTransaction.paymentStatus === "Pending" ? "disabled" : ""}>
+                                       {book.idTransaction.paymentStatus === "Pending" ? "Transaction on process" : "Download" }
                                     </Button>
                                  </Card.Body>
                               </Card>

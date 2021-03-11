@@ -3,7 +3,9 @@ import { createContext, useReducer } from "react";
 export const AppContext = createContext();
 
 const initialState = {
+  userBookList: null,
   loginStatus: true,
+  userTransaction: null,
   isLogin: false,
   isAdmin: false,
   user: null,
@@ -87,6 +89,16 @@ const reducer = (state, action) => {
         registerStatus: false,
         errorMessage: action.payload.message
       }  
+    case "GET_TRANSACTION":
+      return {
+        ...state,
+        userTransaction: action.payload.userTransaction
+      }
+    case "SET_USER_BOOKLIST":
+      return {
+        ...state,
+        userBookList: action.payload.userBookList
+      }
     case "AUTH_ERROR":
     case "LOGOUT":
       localStorage.removeItem("token");
@@ -102,6 +114,8 @@ const reducer = (state, action) => {
           profilImage: "",
         },
         pageTransaction: false,
+        userTransaction: null,
+        userBookList: null,
       };
     default:
       throw new Error();

@@ -56,74 +56,112 @@ const NavigationBar = (props) => {
              )
            : setProfilImage(profileDefault);
       }
-      console.log(state)
    }, [state])
    
    return (
-      <div className="navBar">
-         <Navbar className="justify-content-between bg-transparent pt-3">
+     <div className="navBar">
+       <Navbar className="justify-content-between bg-transparent pt-3">
+         <div className="ml-5">
+           <Link to={isAdmin ? "/admin/transaction" : "/"}>
+             <img
+               alt=""
+               src={logo}
+               width="105px"
+               style={{ transform: "rotate(-15deg)" }}
+               />
+           </Link>
+         </div>
+         <div style={{ display: isAdmin || isLogin ? "none" : "block" }}>
+           <Button
+             onClick={() => loginButton()}
+             variant="light mr-4 rounded-0 border-dark"
+           >
+             Login
+           </Button>
+           <Button
+             onClick={() => registerButton()}
+             variant="dark mr-4 rounded-0 border-light"
+           >
+             Register
+           </Button>
+         </div>
 
-            <div className="ml-5">
-               <Link to={isAdmin ? "/admin/transaction" : "/"} >
-                  <img alt="" src={logo} width="105px" style={{transform: "rotate(-15deg)"}} />
-               </Link>
-            </div>
+         <div
+           style={{ display: isAdmin || isLogin ? "flex" : "none" }}
+           className="mr-3"
+         >
+           <Link to="/cart">
+             <div className={isAdmin ? "d-none" : "mt-3"}>
+               <img src={chart} alt="" />
+             </div>
+           </Link>
 
-            <div style={{display: isAdmin || isLogin ? "none" : "block"}}>
-               <Button onClick={() => loginButton()} variant="light mr-4 rounded-0 border-dark">Login</Button>
-               <Button onClick={() => registerButton()} variant="dark mr-4 rounded-0 border-light">Register</Button>
-            </div>
+           <Dropdown className="ml-3 mr-3">
+             <Dropdown.Toggle className="bg-transparent border-0">
+               <Card.Img
+                 className="rounded-circle mr-3 ml-3"
+                 src={profilImage}
+                 style={{
+                   height: "50px",
+                   width: "50px",
+                   border: "3px solid black",
+                 }}
+               />
+             </Dropdown.Toggle>
 
-            <div style={{display: isAdmin || isLogin ? "flex" : "none" }} className="mr-3">
+             <Dropdown.Menu>
+               <Dropdown.Item className="p-0">
+                 <Link
+                   onClick={() => changePageAdmin()}
+                   to={
+                     isAdmin
+                       ? pageAdmin
+                         ? "/admin/add-book"
+                         : "/admin/transaction"
+                       : "/profile"
+                   }
+                 >
+                   <div className="row container text-right">
+                     {" "}
+                     {/* onClick={props.profile} */}
+                     <div>
+                       <img
+                         alt=""
+                         className="ml-3 invert"
+                         width="25px"
+                         src={isAdmin ? iconBook : iconProfile}
+                       />
+                     </div>
+                     <p className="text-left m-0 p-0 text-secondary">
+                       {isAdmin
+                         ? pageAdmin
+                           ? "AddBook"
+                           : "Transaction"
+                         : "Profile"}
+                     </p>
+                   </div>
+                 </Link>
+               </Dropdown.Item>
 
-               <Link to="/cart">
-                  <div className={isAdmin ? "d-none" : "mt-3"}>
-                     <img src={chart} alt="" />
-                  </div>
-               </Link>
+               <Dropdown.Divider />
 
-               <Dropdown className="ml-3 mr-3">
-                  <Dropdown.Toggle className="bg-transparent border-0">
-                     <Card.Img   className="rounded-circle mr-3 ml-3" 
-                                 src={profilImage} 
-                                 style={{
-                                    height: "50px", 
-                                    width:"50px", 
-                                    border: "3px solid black"
-                                    }}
-                                 />
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                     <Dropdown.Item className="p-0">
-                        <Link onClick={() => changePageAdmin()} to={isAdmin ? pageAdmin ? "/admin/add-book" : "/admin/transaction" : "/profile"} >
-                           <div className="row container text-right"> {/* onClick={props.profile} */}
-                              <div>
-                                 <img alt="" className="ml-3 invert" width="25px" src={isAdmin ? iconBook : iconProfile} />
-                              </div>
-                              <p className="text-left m-0 p-0 text-secondary">{isAdmin ? pageAdmin ? "AddBook" : "Transaction" : "Profile"}</p>
-                           </div>
-                        </Link>
-                     </Dropdown.Item>
-
-                     <Dropdown.Divider />
-
-                     <Dropdown.Item className="p-0">
-                           <div className="row container text-right" onClick={() => logout()}>
-                              <div>
-                                 <img alt="" className="ml-3" src={iconLogout} />
-                              </div>
-                              <p className="text-left m-0 p-0 text-secondary">Logout</p>
-                           </div>
-                     </Dropdown.Item>
-
-                  </Dropdown.Menu>
-               </Dropdown>
-            </div>
-
-         </Navbar>
-      </div>
-   )
+               <Dropdown.Item className="p-0">
+                 <div
+                   className="row container text-right"
+                   onClick={() => logout()}
+                 >
+                   <div>
+                     <img alt="" className="ml-3" src={iconLogout} />
+                   </div>
+                   <p className="text-left m-0 p-0 text-secondary">Logout</p>
+                 </div>
+               </Dropdown.Item>
+             </Dropdown.Menu>
+           </Dropdown>
+         </div>
+       </Navbar>
+     </div>
+   );
 }
 
 export default NavigationBar

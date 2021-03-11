@@ -78,7 +78,6 @@ exports.editUser = async (req, res) => {
   };
 
   try {
-    // const { email, gender, phone, address, profilImage = files } = req.body;
 
     const user = await Users.findOne({
       where: {
@@ -101,10 +100,10 @@ exports.editUser = async (req, res) => {
 
     const userUpdated = await Users.findOne({
       where: {
-        email,
+        email: updateProfile.email,
       },
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["createdAt", "updatedAt", "password", "isAdmin"],
       },
     });
 
