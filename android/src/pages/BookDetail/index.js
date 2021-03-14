@@ -1,23 +1,38 @@
-import React from "react";
-import { View, Text, Button, Image, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Button, Image, StyleSheet, ImageBackground } from "react-native";
 
 import book1 from "../../../assets/img/buku1.png";
+import bg from "../../../assets/img/bgDashboard.png"
 import { API } from "../../config/api";
+import Navbar from "../components/Navbar";
 
 const Detail = ({ route, navigation }) => {
   const { bookTitle, bookAuthor, bookIsbn } = route.params;
+  const [book, setBook] = useState("waduh")
 
-  // const getBook = async () => {
-  //   try {
-  //     const result = await API.get("/books");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  // const id = 1
+
+  const getBook = async () => {
+    try {
+      const result = await API.get("/book/1")
+      setBook(result.data.data.book)
+    } catch (error) {
+      setBook(error.message)
+    }
+  }
+
+  const navigationButton = () => {
+    navigation.navigate("Home");
+  };
+
+  useEffect(() => {
+    getBook()
+  }, [])
 
   return (
-    <View style={styles.container}>
-      <View style={styles.bookDetail}>
+    <ImageBackground source={bg} style={styles.container}>
+      {/* <Navbar navigation={navigationButton} /> */}
+      <View style={{padding:50}}>
         <Image source={book1} style={styles.bookDetailThumbnail} />
 
         <Text style={styles.bookDetailTitle}>{bookTitle}</Text>
@@ -29,7 +44,7 @@ const Detail = ({ route, navigation }) => {
         <Text style={styles.bookDetailSubtitle}>{bookIsbn}</Text>
 
         <View>
-          <Text style={{ fontSize: 20, marginLeft: 20 }}>ABOUT</Text>
+          <Text style={{ fontSize: 20}}>ABOUT</Text>
           <Text style={styles.bookDetailAbout}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
             incidunt voluptas saepe quas. Earum illo asperiores impedit harum
@@ -37,16 +52,21 @@ const Detail = ({ route, navigation }) => {
             recusandae ducimus voluptatibus perferendis.
           </Text>
         </View>
-      </View>
 
-      <View style={{ marginBottom: 20 }}>
-        <Button
-          title="Go to Home"
-          onPress={() => navigation.navigate("Home")}
-        />
-        {/* <Button title="Go back" onPress={() => navigation.goBack()} /> */}
+        <View>
+          <Text>
+            {JSON.stringify(book)}
+          </Text>
+        </View>
+
+        <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
+        
+        <View style={{padding: 10}}>
+          <Button title="getBook" onPress={() => getBook()} />
+        </View>
+
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 

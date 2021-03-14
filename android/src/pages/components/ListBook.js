@@ -1,28 +1,68 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { Container } from 'native-base'
+import { Grid, Col, Row } from "react-native-easy-grid";
 
 const ListBook = () => {
    return (
-      <View>
-         <Text>ListBook</Text>
+      <Container>
          <View>
-            <View>
-               <Text>
-                  Book1
-               </Text>
-            </View>
-            <View>
-               <Text>
-                  Book2
-               </Text>
-            </View>
-            <View>
-               <Text>
-                  Book3
-               </Text>
-            </View>
+            <Text>ListBook</Text>
          </View>
-      </View>
+         <Grid style={{padding: 20}}>
+            <Row style={{height: 300}}>
+               <Col style={{backgroundColor: "red",width: "33.3%"}}>
+                  <Text>
+                     Book1
+                  </Text>
+               </Col>
+               <Col style={{backgroundColor: "yellow",width: "33.3%"}}>
+                  <Text>
+                     Book2
+                  </Text>
+               </Col>
+               <Col style={{backgroundColor: "green",width: "33.3%"}}>
+                  <Text>
+                     Book3
+                  </Text>
+               </Col>
+            </Row>
+            <Row>
+               <Col style={{backgroundColor: "green",width: "33.3%"}}>
+                  <Text>
+                     Book1
+                  </Text>
+               </Col>
+               <Col style={{backgroundColor: "red",width: "33.3%"}}>
+                  <Text>
+                     Book2
+                  </Text>
+               </Col>
+               <Col style={{backgroundColor: "yellow",width: "33.3%"}}>
+                  <Text>
+                     Book3
+                  </Text>
+               </Col>
+            </Row>
+            <Row>
+               <Col style={{backgroundColor: "yellow",width: "33.3%"}}>
+                  <Text>
+                     Book1
+                  </Text>
+               </Col>
+               <Col style={{backgroundColor: "green",width: "33.3%"}}>
+                  <Text>
+                     Book2
+                  </Text>
+               </Col>
+               <Col style={{backgroundColor: "red",width: "33.3%"}}>
+                  <Text>
+                     Book3
+                  </Text>
+               </Col>
+            </Row>
+         </Grid>
+      </Container>
    )
 }
 

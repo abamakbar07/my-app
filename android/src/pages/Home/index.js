@@ -1,22 +1,22 @@
 import React from "react";
-import { StyleSheet, View, Text, Button, Image } from "react-native";
-import {
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
+import { StyleSheet, View, Text, Button, Image, ImageBackground } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import book1 from "../../../assets/img/buku1.png";
 import book4 from "../../../assets/img/buku4.png";
-import bg2 from "../../../assets/img/dashboardBg2.png";
+import bg from "../../../assets/img/dashboardBg.png";
 
 import ListBook from "../components/ListBook";
 import Navbar from "../components/Navbar";
 
 const Home = ({ navigation }) => {
+  const navigationButton = () => {
+    navigation.navigate("Home");
+  }
   return (
-    <View style={styles.container}>
+    <ImageBackground source={bg} style={styles.container}>
 
-      <Navbar navigation={navigation} />
+      <Navbar navigation={navigationButton} />
 
       <View style={{ padding: 40 }}>
         <Text style={styles.headerText}>
@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
 
       <View style={styles.headerBook}>
         <TouchableOpacity>
-          <View>
+          <View style={styles.headerBookContainer}>
             <Image source={book1} style={styles.headerBookImage} />
             <Text style={styles.headerBookTitle}>Serangkai</Text>
             <Text style={styles.headerBookAbout}>"Selama beberapa..."</Text>
@@ -36,7 +36,7 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <View>
+          <View style={styles.headerBookContainer}>
             <Image source={book4} style={styles.headerBookImage} />
             <Text style={styles.headerBookTitle}>Tess On...</Text>
             <Text style={styles.headerBookAbout}>"Pada suatu..."</Text>
@@ -44,12 +44,11 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <ListBook />
+      {/* <ListBook /> */}
 
       <View style={{ marginBottom: 20 }}>
         <Button
           title="Go to details"
-          // onPress={() => navigation.navigate("Details")} // untuk bernavigate ke halaman detail tanpa mengirim data
           onPress={() => {
             navigation.navigate("Details", {
               bookTitle: "Serangkai",
@@ -59,11 +58,7 @@ const Home = ({ navigation }) => {
           }}
         />
       </View>
-      {/* <Button
-        title="POST"
-        onPress={() => navigation.navigate("Post")} // untuk bernavigate ke halaman detail tanpa mengirim data
-      /> */}
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -72,10 +67,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    // background: `URL("${bg2}")`,
   },
   headerText: {
-    paddingTop: 75,
+    paddingTop: 125,
+    height: 240,
     fontSize: 24,
     textAlign: "center",
   },
@@ -84,10 +79,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 0,
   },
+  headerBookContainer: {
+    padding: 10,
+  },
   headerBookImage: {
-    width: 120,
-    height: 120,
-    margin: 20,
+    width: "auto",
+    height: 150,
   },
   headerBookTitle: {
     textAlign: "center",

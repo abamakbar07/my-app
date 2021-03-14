@@ -1,41 +1,23 @@
-import React, { useState } from 'react'
-import { StyleSheet, View, Image, Button, Text } from 'react-native'
-import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
+import React from 'react'
+import { StyleSheet, View, Image, Button } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import logo from "../../../assets/img/logo.png";
 
-const Navbar = (navigation) => {
-  const [data, setData] = useState(true)
-
-  const dataButton = () => {
-    setData(!data)
-    navigation.navigate("Landingpage");
-  }
+const Navbar = (props) => {
+  const nav = props.navigation
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={nav}>
         <View style={styles.containerLogo}>
-          <Image
-            source={logo}
-            onPress={() => navigation.navigate("Landingpage")}
-          />
+          <Image source={logo} />
         </View>
       </TouchableOpacity>
 
-      <View style={{paddingTop: 180}}>
-        <Button
-          title="LandingPage"
-          onPress={() => dataButton()}
-        />
+      <View style={styles.containerMenu}>
+        <Button title="Profile" onPress={nav} />
       </View>
-
-      <View>
-        <Text>
-          {JSON.stringify(data)}
-        </Text>
-      </View>
-      
     </View>
   );
 }
@@ -51,9 +33,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     position: "absolute",
+    justifyContent: "space-between",
   },
   containerLogo: {
     display: "flex",
-    margin: 10,
+    marginLeft: 20,
+  },
+  containerMenu: {
+    display: "flex",
+    marginRight: 20,
+    paddingTop: 15,
   },
 });

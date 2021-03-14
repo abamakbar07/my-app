@@ -26,7 +26,7 @@ function App() {
         <Stack.Screen
           name="Details"
           component={Details}
-          initialParams={{ initParam: "Joss" }}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
