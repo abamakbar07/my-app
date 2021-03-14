@@ -1,33 +1,33 @@
-import React from 'react'
+import React from "react";
 import { View, Text, Button, Image, StyleSheet } from "react-native";
 
 import book1 from "../../../assets/img/buku1.png";
+import { API } from "../../config/api";
 
 const Detail = ({ route, navigation }) => {
   const { bookTitle, bookAuthor, bookIsbn } = route.params;
-  // bookTitle     diambil dari Home
-  // bookAuthor   diambil dari Home
-  // bookIsbn  diambil dari navigation di App.js
-  
+
+  // const getBook = async () => {
+  //   try {
+  //     const result = await API.get("/books");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <View style={styles.container}>
       <View style={styles.bookDetail}>
         <Image source={book1} style={styles.bookDetailThumbnail} />
 
-        <Text style={styles.bookDetailTitle}>
-          {bookTitle}
-        </Text>
+        <Text style={styles.bookDetailTitle}>{bookTitle}</Text>
 
         <Text style={{ fontSize: 16 }}>Author</Text>
-        <Text style={styles.bookDetailSubtitle}>
-          {bookAuthor}
-        </Text>
+        <Text style={styles.bookDetailSubtitle}>{bookAuthor}</Text>
 
         <Text style={{ fontSize: 16 }}>ISBN</Text>
-        <Text style={styles.bookDetailSubtitle}>
-          {bookIsbn}
-        </Text>
-        
+        <Text style={styles.bookDetailSubtitle}>{bookIsbn}</Text>
+
         <View>
           <Text style={{ fontSize: 20, marginLeft: 20 }}>ABOUT</Text>
           <Text style={styles.bookDetailAbout}>
@@ -39,7 +39,7 @@ const Detail = ({ route, navigation }) => {
         </View>
       </View>
 
-      <View style={{ marginBottom: "20px" }}>
+      <View style={{ marginBottom: 20 }}>
         <Button
           title="Go to Home"
           onPress={() => navigation.navigate("Home")}
@@ -48,7 +48,7 @@ const Detail = ({ route, navigation }) => {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -59,22 +59,22 @@ const styles = StyleSheet.create({
   bookDetail: {
     alignItems: "center",
   },
-  bookDetailThumbnail: { 
-    width: 240, 
-    height: 320, 
-    margin: 20, 
+  bookDetailThumbnail: {
+    width: 240,
+    height: 320,
+    margin: 20,
   },
-  bookDetailTitle: { 
-    fontSize: 32, 
-    paddingBottom: 20, 
+  bookDetailTitle: {
+    fontSize: 32,
+    paddingBottom: 20,
   },
-  bookDetailSubtitle: { 
-    fontSize: 24, 
-    paddingBottom: 15, 
+  bookDetailSubtitle: {
+    fontSize: 24,
+    paddingBottom: 15,
   },
-  bookDetailAbout: { 
-    margin: 20, 
+  bookDetailAbout: {
+    margin: 20,
   },
 });
 
-export default Detail
+export default Detail;

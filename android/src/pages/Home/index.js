@@ -1,16 +1,24 @@
-import React from 'react'
+import React from "react";
 import { StyleSheet, View, Text, Button, Image } from "react-native";
-import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 
-import book1 from '../../../assets/img/buku1.png'
-import book4 from '../../../assets/img/buku4.png'
-import bg2 from '../../../assets/img/dashboardBg2.png'
+import book1 from "../../../assets/img/buku1.png";
+import book4 from "../../../assets/img/buku4.png";
+import bg2 from "../../../assets/img/dashboardBg2.png";
+
+import ListBook from "../components/ListBook";
+import Navbar from "../components/Navbar";
 
 const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
 
-      <View style={{ padding: "20px" }}>
+      <Navbar navigation={navigation} />
+
+      <View style={{ padding: 40 }}>
         <Text style={styles.headerText}>
           {" "}
           With us, you can shop online & help save your high street at the same
@@ -19,22 +27,26 @@ const Home = ({ navigation }) => {
       </View>
 
       <View style={styles.headerBook}>
+        <TouchableOpacity>
+          <View>
+            <Image source={book1} style={styles.headerBookImage} />
+            <Text style={styles.headerBookTitle}>Serangkai</Text>
+            <Text style={styles.headerBookAbout}>"Selama beberapa..."</Text>
+          </View>
+        </TouchableOpacity>
 
-        <View>
-          <Image source={book1} style={styles.headerBookImage} />
-          <Text style={styles.headerBookTitle}>Serangkai</Text>
-          <Text style={styles.headerBookAbout}>"Selama beberapa..."</Text>
-        </View>
-        
-        <View>
-          <Image source={book4} style={styles.headerBookImage} />
-          <Text style={styles.headerBookTitle}>Tess On...</Text>
-          <Text style={styles.headerBookAbout}>"Pada suatu..."</Text>
-        </View>
-
+        <TouchableOpacity>
+          <View>
+            <Image source={book4} style={styles.headerBookImage} />
+            <Text style={styles.headerBookTitle}>Tess On...</Text>
+            <Text style={styles.headerBookAbout}>"Pada suatu..."</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
-      <View style={{ marginBottom: "20px" }}>
+      <ListBook />
+
+      <View style={{ marginBottom: 20 }}>
         <Button
           title="Go to details"
           // onPress={() => navigation.navigate("Details")} // untuk bernavigate ke halaman detail tanpa mengirim data
@@ -53,16 +65,17 @@ const Home = ({ navigation }) => {
       /> */}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    background: `URL("${bg2}")`,
+    // background: `URL("${bg2}")`,
   },
   headerText: {
+    paddingTop: 75,
     fontSize: 24,
     textAlign: "center",
   },
@@ -80,10 +93,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 32,
   },
-  headerBookAbout: { 
-    textAlign: "center" 
+  headerBookAbout: {
+    textAlign: "center",
   },
 });
 
-
-export default Home
+export default Home;

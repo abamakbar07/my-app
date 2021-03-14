@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
 
@@ -9,7 +9,7 @@ const Landingpage = ({ navigation }) => {
   const user = {
     email: "abam@gmail.com",
     password: "1234",
-  }
+  };
 
   const [loginError, setLoginError] = useState("none");
 
@@ -19,17 +19,17 @@ const Landingpage = ({ navigation }) => {
   });
 
   const onChangeEmail = (email) => {
-    setLoginForm({ ...loginForm, email,})
-  }
+    setLoginForm({ ...loginForm, email });
+  };
   const onChangePassword = (password) => {
-    setLoginForm({ ...loginForm, password,})
-  }
+    setLoginForm({ ...loginForm, password });
+  };
 
   const loginButton = () => {
-    user.email == loginForm.email && user.password == loginForm.password ?
-      navigation.navigate("Home") :
-      setLoginError("")
-  }
+    user.email == loginForm.email && user.password == loginForm.password
+      ? navigation.navigate("Home")
+      : setLoginError("flex");
+  };
 
   return (
     <View style={styles.container}>
@@ -37,8 +37,10 @@ const Landingpage = ({ navigation }) => {
 
       <Text style={styles.textDefault}>Silahkan Login terlebih dahulu</Text>
 
-      <View style={{display: loginError}}>
-        <Text style={styles.textError}>Email / Password yang anda masukkan tidak sesuai. Silahkan coba lagi</Text>
+      <View style={{ display: loginError }}>
+        <Text style={styles.textError}>
+          Email / Password yang anda masukkan tidak sesuai. Silahkan coba lagi
+        </Text>
       </View>
 
       <Text style={styles.textDefault}>Email :</Text>
@@ -60,16 +62,14 @@ const Landingpage = ({ navigation }) => {
       />
 
       <View style={styles.buttonContainer}>
-        <Button
-          title="Login"
-          onPress={loginButton}
-        />
+        <Button title="Login" onPress={loginButton} />
       </View>
 
       {/* <StatusBar style={styles.br} /> */}
       <Text style={styles.textHeader}>
         {JSON.stringify(loginForm)}
-        {user.email == loginForm.email && user.password == loginForm.password ? (
+        {user.email == loginForm.email &&
+        user.password == loginForm.password ? (
           <Text>True</Text>
         ) : (
           <Text>False</Text>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    background: `URL(${bg})`,
+    // background: `URL(${bg})`,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0,
     alignContent: "center",
-    display: "",
-  }
+    display: "flex",
+  },
 });
 
 export default Landingpage;
