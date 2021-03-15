@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./src/pages/Home/index";
 import Details from "./src/pages/BookDetail/index";
 import Landingpage from "./src/pages/LandingPage/index";
+import Dashboard from "./src/pages/components/Dashboard";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,11 @@ function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="Home"
           component={Home}
           options={{ headerShown: false }}
@@ -26,7 +32,7 @@ function App() {
         <Stack.Screen
           name="Details"
           component={Details}
-          options={{ headerShown: false }}
+          options={{ title: "Book Detail" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

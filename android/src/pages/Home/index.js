@@ -1,10 +1,12 @@
 import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet, View, Text, Button, Image, ImageBackground } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
 import book1 from "../../../assets/img/buku1.png";
 import book4 from "../../../assets/img/buku4.png";
 import bg from "../../../assets/img/dashboardBg.png";
+import logo from "../../../assets/img/logo.png";
 
 import ListBook from "../components/ListBook";
 import Navbar from "../components/Navbar";
@@ -14,51 +16,57 @@ const Home = ({ navigation }) => {
     navigation.navigate("Home");
   }
   return (
-    <ImageBackground source={bg} style={styles.container}>
-
-      <Navbar navigation={navigationButton} />
-
-      <View style={{ padding: 40 }}>
-        <Text style={styles.headerText}>
-          {" "}
-          With us, you can shop online & help save your high street at the same
-          time
-        </Text>
-      </View>
-
-      <View style={styles.headerBook}>
-        <TouchableOpacity>
-          <View style={styles.headerBookContainer}>
-            <Image source={book1} style={styles.headerBookImage} />
-            <Text style={styles.headerBookTitle}>Serangkai</Text>
-            <Text style={styles.headerBookAbout}>"Selama beberapa..."</Text>
+    <View>
+      {/* <Navbar navigation={navigationButton} /> */}
+      <ScrollView>
+        <ImageBackground source={bg} style={styles.container}>
+          <View style={styles.logoContainer}>
+            <Image source={logo} style={{ width: 200, height: 100 }} />
           </View>
-        </TouchableOpacity>
 
-        <TouchableOpacity>
-          <View style={styles.headerBookContainer}>
-            <Image source={book4} style={styles.headerBookImage} />
-            <Text style={styles.headerBookTitle}>Tess On...</Text>
-            <Text style={styles.headerBookAbout}>"Pada suatu..."</Text>
+          <View>
+            <Text style={styles.headerText}>
+              {" "}
+              With us, you can shop online & help save your high street at the
+              same time
+            </Text>
           </View>
-        </TouchableOpacity>
-      </View>
 
-      {/* <ListBook /> */}
+          <View style={styles.headerBook}>
+            <TouchableOpacity>
+              <View style={styles.headerBookContainer}>
+                <Image source={book1} style={styles.headerBookImage} />
+                <Text style={styles.headerBookTitle}>Serangkai</Text>
+                <Text style={styles.headerBookAbout}>"Selama beberapa..."</Text>
+              </View>
+            </TouchableOpacity>
 
-      <View style={{ marginBottom: 20 }}>
-        <Button
-          title="Go to details"
-          onPress={() => {
-            navigation.navigate("Details", {
-              bookTitle: "Serangkai",
-              bookAuthor: "Valerie Patkar",
-              bookIsbn: "789798456",
-            });
-          }}
-        />
-      </View>
-    </ImageBackground>
+            <TouchableOpacity>
+              <View style={styles.headerBookContainer}>
+                <Image source={book4} style={styles.headerBookImage} />
+                <Text style={styles.headerBookTitle}>Tess On...</Text>
+                <Text style={styles.headerBookAbout}>"Pada suatu..."</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <ListBook />
+
+          <View style={{ marginBottom: 20 }}>
+            <Button
+              title="Go to details"
+              onPress={() => {
+                navigation.navigate("Details", {
+                  bookTitle: "Serangkai",
+                  bookAuthor: "Valerie Patkar",
+                  bookIsbn: "789798456",
+                });
+              }}
+            />
+          </View>
+        </ImageBackground>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -67,6 +75,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  logoContainer: {
+    alignItems: "center",
+    paddingTop: 75,
+    width: 240,
+    height: 100,
   },
   headerText: {
     paddingTop: 125,

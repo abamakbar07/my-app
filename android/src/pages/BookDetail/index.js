@@ -5,19 +5,24 @@ import book1 from "../../../assets/img/buku1.png";
 import bg from "../../../assets/img/bgDashboard.png"
 import { API } from "../../config/api";
 import Navbar from "../components/Navbar";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Detail = ({ route, navigation }) => {
   const { bookTitle, bookAuthor, bookIsbn } = route.params;
-  const [book, setBook] = useState("waduh")
+  const [loading, setLoading] = useState(true)
+  const [book, setBook] = useState([])
 
   // const id = 1
 
   const getBook = async () => {
     try {
-      const result = await API.get("/book/1")
+      setLoading(true)
+      const result = await API.get("/book/3")
       setBook(result.data.data.book)
+      setLoading(false)
     } catch (error) {
       setBook(error.message)
+      console.log(error)
     }
   }
 
@@ -31,50 +36,50 @@ const Detail = ({ route, navigation }) => {
 
   return (
     <ImageBackground source={bg} style={styles.container}>
-      {/* <Navbar navigation={navigationButton} /> */}
-      <View style={{padding:50}}>
-        <Image source={book1} style={styles.bookDetailThumbnail} />
+      <ScrollView>
+        {/* <Navbar navigation={navigationButton} /> */}
+        {loading ? (
+          <View>
+            <Text>Loading</Text>
+          </View>
+        ) : (
+          <View style={{ padding: 50 }}>
+            <Image
+              source={{
+                uri: "http://10.0.2.2:5000/books/" + book.bookThumbnail,
+              }}
+              style={styles.bookDetailThumbnail}
+            />
 
-        <Text style={styles.bookDetailTitle}>{bookTitle}</Text>
+            <Text style={styles.bookDetailTitle}>{book.title}</Text>
 
-        <Text style={{ fontSize: 16 }}>Author</Text>
-        <Text style={styles.bookDetailSubtitle}>{bookAuthor}</Text>
+            <Text style={{ fontSize: 16 }}>Author</Text>
+            <Text style={styles.bookDetailSubtitle}>{book.author}</Text>
 
-        <Text style={{ fontSize: 16 }}>ISBN</Text>
-        <Text style={styles.bookDetailSubtitle}>{bookIsbn}</Text>
+            <Text style={{ fontSize: 16 }}>ISBN</Text>
+            <Text style={styles.bookDetailSubtitle}>{book.isbn}</Text>
 
-        <View>
-          <Text style={{ fontSize: 20}}>ABOUT</Text>
-          <Text style={styles.bookDetailAbout}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-            incidunt voluptas saepe quas. Earum illo asperiores impedit harum
-            suscipit porro. Vel, debitis vero blanditiis suscipit veniam
-            recusandae ducimus voluptatibus perferendis.
-          </Text>
-        </View>
+            <View>
+              <Text style={{ fontSize: 20 }}>ABOUT</Text>
+              <Text style={styles.bookDetailAbout}>{book.about}</Text>
+            </View>
 
-        <View>
-          <Text>
-            {JSON.stringify(book)}
-          </Text>
-        </View>
-
-        <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
-        
-        <View style={{padding: 10}}>
-          <Button title="getBook" onPress={() => getBook()} />
-        </View>
-
-      </View>
+            <Button
+              title="Go to Home"
+              onPress={() => navigation.navigate("Home")}
+            />
+          </View>
+        )}
+      </ScrollView>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    // flex: 1,
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   bookDetail: {
     alignItems: "center",
