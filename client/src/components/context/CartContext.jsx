@@ -44,6 +44,11 @@ const reducer = (state, action) => {
           (product) => product.id !== action.payload.id
         ),
       };
+    case "CLEAR_CART":
+      return {
+        ...state,
+        carts: [],
+      };
     default:
       throw new Error();
   }

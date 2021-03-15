@@ -140,6 +140,15 @@ const LandingPage = () => {
     }
   };
 
+  const setLoginRequireModal = () => {
+     dispatch({
+        type: "SET_LOGIN_REQUIRE",
+        payload: {
+           loginRequire: false,
+        }
+     })
+  }
+
    useEffect(() => { 
       if (!state.loading && state.user.isAdmin) {
          dispatch({
@@ -154,57 +163,93 @@ const LandingPage = () => {
    }, [state])
 
    return (
-      <Container fluid>
-         <div>
-            <Header />
-            <BestBook />
-            <ListBooks />
-         </div>
+     <Container fluid>
+       <div>
+         <Header />
+         <BestBook />
+         <ListBooks />
+       </div>
 
-         <div  className="LandingPage-dim" 
-               onClick={() => closeModal()} 
-               style={{
-                  display: stateModal.modalLogin || stateModal.modalRegister ? 'block' : 'none' 
-               }} >
-         </div>
+       <div
+         className="LandingPage-dim"
+         onClick={() => closeModal()}
+         style={{
+           display:
+             stateModal.modalLogin || stateModal.modalRegister
+               ? "block"
+               : "none",
+         }}
+       ></div>
 
-         <div  className="Login card modalLoginRegister"
-               style={{
-                  display: stateModal.modalLogin ? 'block' : 'none'
-               }}
+       <div
+         className="Login card modalLoginRegister"
+         style={{
+           display: stateModal.modalLogin ? "block" : "none",
+         }}
+       >
+         <Login
+           statusLogin=""
+           submit={(e) => login(e)}
+           change={(e) => onChange(e)}
+         />
+       </div>
+
+       <div
+         className="Signup card modalLoginRegister"
+         style={{
+           display: stateModal.modalRegister ? "block" : "none",
+         }}
+       >
+         <Register
+           statusSignup={registerModalDisplay}
+           submit={(e) => register(e)}
+           change={(e) => onRegister(e)}
+         />
+       </div>
+
+       <Modal show={loginModal} onHide={handleClose}>
+         <Modal.Body
+           className={state.loginStatus ? "text-success" : "text-danger"}
          >
-                  <Login statusLogin="" submit={(e) => login(e)} change={(e) => onChange(e)} />
-         </div>
+           {state.loginStatus ? "Login succesfully!" : "Login Failed"}
+         </Modal.Body>
+         <Modal.Footer>
+           <Button variant="primary" onClick={handleClose}>
+             Ok
+           </Button>
+         </Modal.Footer>
+       </Modal>
 
-         <div  className="Signup card modalLoginRegister" 
-               style={{
-                  display: stateModal.modalRegister ? 'block' : 'none'
-               }}
+       <Modal show={registerModal} onHide={handleClose}>
+         <Modal.Body
+           className={state.registerStatus ? "text-success" : "text-danger"}
          >
-                  <Register statusSignup={registerModalDisplay} submit={(e) => register(e)} change={(e) => onRegister(e)} />
-         </div>
+           {state.registerStatus
+             ? "Your email succesfully registered! Login now!"
+             : `Register Failed! ${state.errorMessage}`}
+         </Modal.Body>
+         <Modal.Footer>
+           <Button variant="primary" onClick={handleClose}>
+             Ok
+           </Button>
+         </Modal.Footer>
+       </Modal>
 
-         <Modal show={loginModal} onHide={handleClose}>
-            <Modal.Body className={state.loginStatus ? "text-success" : "text-danger"}>{state.loginStatus ? "Login succesfully!" : "Login Failed"}</Modal.Body>
-            <Modal.Footer>
-               <Button variant="primary" onClick={handleClose}>
-                  Ok
-               </Button>
-            </Modal.Footer>
-         </Modal>
-
-         <Modal show={registerModal} onHide={handleClose}>
-            <Modal.Body className={state.registerStatus ? "text-success" : "text-danger"}>{state.registerStatus ? "Your email succesfully registered! Login now!" : `Register Failed! ${state.errorMessage}`}</Modal.Body>
-            <Modal.Footer>
-               <Button variant="primary" onClick={handleClose}>
-                  Ok
-               </Button>
-            </Modal.Footer>
-         </Modal>
-
-
-      </Container>
-   )
+       <Modal show={state.loginRequire} onHide={setLoginRequireModal}>
+         <Modal.Body className="text-danger">
+           You must be to loggin first, please!
+         </Modal.Body>
+         <Modal.Footer>
+           <Button
+             className="globalButtonNoRound border-0"
+             onClick={setLoginRequireModal}
+           >
+             Ok
+           </Button>
+         </Modal.Footer>
+       </Modal>
+     </Container>
+   );
 }
 
 export default LandingPage

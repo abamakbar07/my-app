@@ -3,19 +3,27 @@ import { Link } from 'react-router-dom'
 import { Navbar, Button, Dropdown, Card } from 'react-bootstrap'
 
 import logo from '../assets/logo.png'
-import chart from '../assets/icon/chart.png'
+import cartLogo from '../assets/icon/chart.png'
 import iconLogout from '../assets/icon/iconLogout.png'
 import iconBook from '../assets/icon/addBookGrey.png'
 import iconProfile from '../assets/icon/iconProfile.png'
 import profileDefault from '../assets/profileDefault.jpg'
 import { ModalContext } from './context/ModalContext'
 import { AppContext } from './context/GlobalContext'
+import { CartContext } from './context/CartContext'
 
 const NavigationBar = (props) => {
    const [stateModal, dispatchModal] = useContext(ModalContext)
+   const [stateCart, dispatchCart] = useContext(CartContext);
    const [state, dispatch] = useContext(AppContext)
    const [pageAdmin, setPageAdmin] = useState(true)
    const [profilImage, setProfilImage] = useState(profileDefault)
+
+   const [cartCount, setCartCount] = useState(stateCart.carts.length);
+
+   const getCartCount = () => {
+     setCartCount(stateCart.carts.length)
+   }
 
    const changePageAdmin = () => {
       setPageAdmin(!pageAdmin)
@@ -28,6 +36,10 @@ const NavigationBar = (props) => {
 
       dispatchModal({
          type: "CLOSE_MODAL"
+      })
+
+      dispatchCart({
+        type: "CLEAR_CART"
       })
    }
 
@@ -57,6 +69,11 @@ const NavigationBar = (props) => {
            : setProfilImage(profileDefault);
       }
    }, [state])
+
+
+   useEffect(() => {
+     getCartCount()
+   }, [stateCart])
    
    return (
      <div className="navBar">
@@ -68,7 +85,7 @@ const NavigationBar = (props) => {
                src={logo}
                width="105px"
                style={{ transform: "rotate(-15deg)" }}
-               />
+             />
            </Link>
          </div>
          <div style={{ display: isAdmin || isLogin ? "none" : "block" }}>
@@ -91,8 +108,26 @@ const NavigationBar = (props) => {
            className="mr-3"
          >
            <Link to="/cart">
-             <div className={isAdmin ? "d-none" : "mt-3"}>
-               <img src={chart} alt="" />
+             <div className={isAdmin ? "d-none" : "mt-3 mr-2"}>
+               <div
+                 style={{
+                   position: "relative",
+                   width: 25,
+                   height: 25,
+                 }}
+               >
+                 <img style={{ position: "absolute" }} src={cartLogo} alt="" />
+                 <div
+                   className="text-center text-white"
+                   style={{
+                     position: "absolute",
+                     width: 25,
+                     display: cartCount == 0 ? "none" : "block",
+                   }}
+                 >
+                   <p className="bg-danger rounded-circle">{cartCount}</p>
+                 </div>
+               </div>
              </div>
            </Link>
 

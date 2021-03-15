@@ -10,6 +10,7 @@ const initialState = {
   isAdmin: false,
   user: null,
   loading: true,
+  loginRequire: false,
 };
 
 const reducer = (state, action) => {
@@ -99,11 +100,17 @@ const reducer = (state, action) => {
         ...state,
         userBookList: action.payload.userBookList
       }
+    case "SET_LOGIN_REQUIRE": 
+      return {
+        ...state,
+        loginRequire: action.payload.loginRequire
+      }
     case "AUTH_ERROR":
     case "LOGOUT":
       localStorage.removeItem("token");
       return {
         ...state,
+        loginRequire: false,
         isLogin: false,
         isAdmin: false,
         user: {

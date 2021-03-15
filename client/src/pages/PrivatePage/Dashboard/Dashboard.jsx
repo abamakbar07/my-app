@@ -29,7 +29,7 @@ const Dashboard = () => {
          },
        });
        setLoading(false);
-       setRun("Waduh")
+       setRun("Run")
      } catch (error) {
        console.log(error);
      }

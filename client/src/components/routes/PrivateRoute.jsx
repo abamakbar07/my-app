@@ -3,9 +3,16 @@ import React, { useContext } from "react";
 import { AppContext } from '../context/GlobalContext';
 
 export const PrivateRoute = ({component : Component, ...rest}) => {
-  const [state] = useContext(AppContext);
+  const [state, dispatch] = useContext(AppContext);
   const isLogin = state.isLogin;
-  // if (!isLogin) alert("Please login first to access the content!")
+  if (!isLogin) {
+    dispatch({
+      type: "SET_LOGIN_REQUIRE",
+      payload: {
+        loginRequire: true,
+      }
+    })
+  }
 
   return (
     <Route
