@@ -14,7 +14,7 @@ const Header = () => {
                   fontWeight: "normal",
                   fontSize: "43px",
                   lineHeight: "60px",
-               }}>With, you can shop online & help save your high street at the same time</h3>
+               }}>With us, you can shop online & help save your high street at the same time</h3>
             </div>
          </Jumbotron>
       </div>
