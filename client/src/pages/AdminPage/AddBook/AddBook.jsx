@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Form } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react'
+import { Button, Form, Modal } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { API } from '../../../config/api';
 
@@ -9,12 +9,10 @@ import addBookIcon from '../../../assets/icon/addBook.png'
 const AddBook = () => {
    const history = useHistory()
    const [loading, setLoading] = useState(false);
-
-   const [previewImage, setPreviewImage] = useState({
-      file : null,
-   })
-
+   const [show, setShow] = useState(false);
+   const [statusAddBook, setStatusAddBook] = useState(false)
    const [addBook, setAddBook] = useState({
+      id: "",
       title: "",
       publicationDate: "",
       pages: "",
@@ -24,6 +22,32 @@ const AddBook = () => {
       about: "",
       bookThumbnail: null,
       bookFile: null,
+   });
+
+   const modalShow = () => {
+      setShow(true);
+   };
+
+   const modalClose = () => {
+      setShow(false);
+      history.push("/admin/transaction");
+   };
+
+   const getLastBook = async () => {
+      try {
+         const result = await API.get("/books")
+         const id = result.data.data.books.length + 1 
+         setAddBook({
+            ...addBook,
+            id,
+         });
+      } catch (error) {
+         console.log(error)
+      }
+   }
+
+   const [previewImage, setPreviewImage] = useState({
+      file : null,
    })
 
    const onChange = (e) => {
@@ -47,13 +71,14 @@ const AddBook = () => {
       setAddBook(updateAddBook)
    }
 
-   const { title, publicationDate, pages, author, isbn, price, about, bookThumbnail, bookFile } = addBook
+   const { id, title, publicationDate, pages, author, isbn, price, about, bookThumbnail, bookFile } = addBook
 
    const onSubmit = async (e) => {
       e.preventDefault();
       try {
          const form = new FormData();
 
+         form.append("id", id);
          form.append("title", title);
          form.append("publicationDate", publicationDate);
          form.append("pages", pages);
@@ -79,6 +104,7 @@ const AddBook = () => {
          console.log(book.data.data.book)
 
          setAddBook({
+            id: "",
             title: "",
             publicationDate: "",
             pages: "",
@@ -89,89 +115,170 @@ const AddBook = () => {
             bookThumbnail: null,
             bookFile: null,
          })
-
-         history.push("/")
+         setStatusAddBook(true);
+         modalShow()
+         // history.push("/admin/transaction")
 
       } catch (error) {
+         modalShow()
          console.log(error)
       }
    }
+
+   useEffect(() => {
+      getLastBook()
+   }, [])
    
    return (
-      <div className="pt-5">
-         <div className="pt-5">
-            <div className="container pl-5 pr-5" style={{paddingTop: '5vh'}}>
-               <div className="row">
-                  <div className="col-md-12">
-                     <h1 className="Admin-title text-left mb-5">Add Book</h1>
-                     <Form.Group onSubmit={(e) => onSubmit(e)}>
-                        <Form.Control onChange={(e) => onChange(e)} name="title" className="bgTextboxSubs" size="lg" type="text" placeholder="Title" />
-                        <br />
-                        <Form.Control onChange={(e) => onChange(e)} name="publicationDate" className="bgTextboxSubs" size="lg" type="text" placeholder="Publication Date" />
-                        <br />
-                        <Form.Control onChange={(e) => onChange(e)} name="pages" className="bgTextboxSubs" size="lg" type="text" placeholder="Pages" />
-                        <br />
-                        <Form.Control onChange={(e) => onChange(e)} name="author" className="bgTextboxSubs" size="lg" type="text" placeholder="Author" />
-                        <br />
-                        <Form.Control onChange={(e) => onChange(e)} name="isbn" className="bgTextboxSubs" size="lg" type="text" placeholder="ISBN" />
-                        <br />
-                        <Form.Control onChange={(e) => onChange(e)} name="price" className="bgTextboxSubs" size="lg" type="text" placeholder="Price" />
-                        <br />
-                        <Form.Control onChange={(e) => onChange(e)} name="about" className="bgTextboxSubs Admin-AddBook-about" size="lg" type="text" placeholder="About This Book" />
-                        <br />
-                        <div className="form-group col-md-4 pl-0 pr-0">
-                           <label for="bookThumbnail" className="bgTextboxAdd form-control">
-                              <div className="justify-content-between row ml-1 mr-1">
-                                 <p className="text-left ">
-                                    Attache thumbnail book
-                                 </p>
-                                 <div className="">
-                                    <img alt="" src={attach} />
-                                 </div>
-                              </div>
-                           </label>
-                           <input onChange={(e) => onUploadThumbnail(e)} name="bookThumbnail" id="bookThumbnail" type="file" style={{display:"none"}} />
-                           <img  alt=""
-                                 src={previewImage.file}
-                                 style={{
-                                    width: "240px"
-                                 }} />
-                        </div>
-                        <div className="form-group col-md-4 pl-0 pr-0">
-                           <label for="bookFile" className="bgTextboxAdd form-control">
-                              <div className="justify-content-between row ml-1 mr-1">
-                                 <p className="text-left ">
-                                    Attache book file
-                                 </p>
-                                 <div className="">
-                                    <img alt="" src={attach} />
-                                 </div>
-                              </div>
-                           </label>
-                           <input onChange={(e) => onUploadEpub(e)} name="bookFile" id="bookFile" type="file" style={{display:""}} />
-                        </div>
-                        <div className="row">
-                           <div className="col-sm-12 text-right">
-                              <Link to="/">
-                                 <button  onClick={(e) => onSubmit(e)}
-                                          className="btn text-white Add m-1"
-                                          type="submit"
-                                          style={{
-                                             background: "#393939"
-                                          }}
-                                             >Add Book
-                                          <img alt="" className="ml-2" src={addBookIcon} /></button>
-                              </Link>
-                           </div>
-                        </div>
-                     </Form.Group>
-                  </div>
-               </div>
-
-            </div>
+     <div className="pt-5">
+       <div className="pt-5">
+         <div className="container pl-5 pr-5" style={{ paddingTop: "5vh" }}>
+           <div className="row">
+             <div className="col-md-12">
+               <h1 className="Admin-title text-left mb-5">
+                 Add Book
+               </h1>
+               <Form.Group onSubmit={(e) => onSubmit(e)}>
+                 <Form.Control
+                   onChange={(e) => onChange(e)}
+                   name="title"
+                   className="bgTextboxSubs"
+                   size="lg"
+                   type="text"
+                   placeholder="Title"
+                 />
+                 <br />
+                 <Form.Control
+                   onChange={(e) => onChange(e)}
+                   name="publicationDate"
+                   className="bgTextboxSubs"
+                   size="lg"
+                   type="text"
+                   placeholder="Publication Date"
+                 />
+                 <br />
+                 <Form.Control
+                   onChange={(e) => onChange(e)}
+                   name="pages"
+                   className="bgTextboxSubs"
+                   size="lg"
+                   type="text"
+                   placeholder="Pages"
+                 />
+                 <br />
+                 <Form.Control
+                   onChange={(e) => onChange(e)}
+                   name="author"
+                   className="bgTextboxSubs"
+                   size="lg"
+                   type="text"
+                   placeholder="Author"
+                 />
+                 <br />
+                 <Form.Control
+                   onChange={(e) => onChange(e)}
+                   name="isbn"
+                   className="bgTextboxSubs"
+                   size="lg"
+                   type="text"
+                   placeholder="ISBN"
+                 />
+                 <br />
+                 <Form.Control
+                   onChange={(e) => onChange(e)}
+                   name="price"
+                   className="bgTextboxSubs"
+                   size="lg"
+                   type="text"
+                   placeholder="Price"
+                 />
+                 <br />
+                 <Form.Control
+                   onChange={(e) => onChange(e)}
+                   name="about"
+                   className="bgTextboxSubs Admin-AddBook-about"
+                   size="lg"
+                   type="text"
+                   placeholder="About This Book"
+                 />
+                 <br />
+                 <div className="form-group col-md-4 pl-0 pr-0">
+                   <label
+                     for="bookThumbnail"
+                     className="bgTextboxAdd form-control"
+                   >
+                     <div className="justify-content-between row ml-1 mr-1">
+                       <p className="text-left ">Attache thumbnail book</p>
+                       <div className="">
+                         <img alt="" src={attach} />
+                       </div>
+                     </div>
+                   </label>
+                   <input
+                     onChange={(e) => onUploadThumbnail(e)}
+                     name="bookThumbnail"
+                     id="bookThumbnail"
+                     type="file"
+                     style={{ display: "none" }}
+                   />
+                   <img
+                     alt=""
+                     src={previewImage.file}
+                     style={{
+                       width: "240px",
+                     }}
+                   />
+                 </div>
+                 <div className="form-group col-md-4 pl-0 pr-0">
+                   <label for="bookFile" className="bgTextboxAdd form-control">
+                     <div className="justify-content-between row ml-1 mr-1">
+                       <p className="text-left ">Attache book file</p>
+                       <div className="">
+                         <img alt="" src={attach} />
+                       </div>
+                     </div>
+                   </label>
+                   <input
+                     onChange={(e) => onUploadEpub(e)}
+                     name="bookFile"
+                     id="bookFile"
+                     type="file"
+                     style={{ display: "" }}
+                   />
+                 </div>
+                 <div className="row">
+                   <div className="col-sm-12 text-right">
+                     <Link to="/">
+                       <button
+                         onClick={(e) => onSubmit(e)}
+                         className="btn text-white Add m-1"
+                         type="submit"
+                         style={{
+                           background: "#393939",
+                         }}
+                       >
+                         Add Book
+                         <img alt="" className="ml-2" src={addBookIcon} />
+                       </button>
+                     </Link>
+                   </div>
+                 </div>
+               </Form.Group>
+               <Modal show={show} onHide={modalClose}>
+                 <Modal.Body
+                   className={statusAddBook ? "text-success" : "text-danger"}
+                 >
+                   {statusAddBook
+                     ? "Book Successfuly added!"
+                     : "Failed to adding new book! Cek console.log"}
+                 </Modal.Body>
+               </Modal>
+             </div>
+           </div>
          </div>
-      </div>
-   )
+       </div>
+     </div>
+   );
 }
 
 export default AddBook

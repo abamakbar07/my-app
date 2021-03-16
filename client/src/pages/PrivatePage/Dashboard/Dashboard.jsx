@@ -43,7 +43,7 @@ const Dashboard = () => {
          "/booktransaction/" + state.userTransaction
          );
          const userBookList = resultBookTransaction.data.data.bookTransaction;
-         console.log(userBookList)
+
          dispatch({
          type: "SET_USER_BOOKLIST",
          payload: {

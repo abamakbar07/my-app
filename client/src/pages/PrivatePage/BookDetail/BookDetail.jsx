@@ -18,7 +18,7 @@ const BookDetail = () => {
    const [booksResult, setBooksResult] = useState([])
    const [addCart, setAddCart] = useState(true)
 
-   const [index, setIndex] = useState(0);
+   const [index, setIndex] = useState(id);
 
    const handleSelect = (selectedIndex, e) => {
       setIndex(selectedIndex);
@@ -29,12 +29,12 @@ const BookDetail = () => {
    }
 
    const getAddCart = () => {
-      setLoading(false)
+      setLoading(true)
       let i
       for (i=0; i < carts.length; i++) {
          if (carts[i].id === id) setAddCart(false)
       }
-      setLoading(true)
+      setLoading(false)
    }
 
    const getBook = async () => {
