@@ -42,9 +42,7 @@ const ListBooks = () => {
                  <Card className=" bg-transparent border-0 pb-5">
                    <Card.Img
                      variant="top"
-                     src={
-                       "http://localhost:5000/books/" + bookList.bookThumbnail
-                     }
+                     src={bookList.bookThumbnail}
                      style={{ height: "30vh", objectFit: "cover" }}
                    />
                    <Card.Body className="text-left p-0 pt-2">

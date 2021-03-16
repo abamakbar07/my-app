@@ -166,7 +166,7 @@ const LandingPage = () => {
      <Container fluid>
        <div>
          <Header />
-         <BestBook />
+         {/* <BestBook /> */}
          <ListBooks />
        </div>
 
