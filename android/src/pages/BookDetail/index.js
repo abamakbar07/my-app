@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar";
 import { ScrollView } from "react-native-gesture-handler";
 
 const Detail = ({ route, navigation }) => {
-  const { bookTitle, bookAuthor, bookIsbn } = route.params;
+  const { id } = route.params;
   const [loading, setLoading] = useState(true)
   const [book, setBook] = useState([])
 
@@ -17,7 +17,7 @@ const Detail = ({ route, navigation }) => {
   const getBook = async () => {
     try {
       setLoading(true)
-      const result = await API.get("/book/3")
+      const result = await API.get("/book/" + id)
       setBook(result.data.data.book)
       setLoading(false)
     } catch (error) {
@@ -65,7 +65,8 @@ const Detail = ({ route, navigation }) => {
             </View>
 
             <Button
-              title="Go to Home"
+              title="Add to cart"
+              color="#393939"
               onPress={() => navigation.navigate("Home")}
             />
           </View>

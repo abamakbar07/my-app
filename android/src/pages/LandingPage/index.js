@@ -1,11 +1,52 @@
-import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  Button,
+  AsyncStorage,
+} from "react-native";
 
 import logo from "../../../assets/img/logo.png";
 import bg from "../../../assets/img/bgDashboard.png";
+import { AppContext } from "../../components/context/globalContext";
+import { API, setAuthToken } from "../../config/api";
+
+if (AsyncStorage.getItem("token")) {
+  setAuthToken(AsyncStorage.getItem("token"));
+}
 
 const Landingpage = ({ navigation }) => {
+  const [state, dispatch] = useContext(AppContext);
+
+  const checkUser = async () => {
+    try {
+      const response = await API.get("/check-auth");
+
+      if (response.status === 401) {
+        return dispatch({
+          type: "AUTH_ERROR",
+        });
+      }
+
+      dispatch({
+        type: "USER_LOADED",
+        payload: response.data.data.user,
+      });
+    } catch (error) {
+      console.log(error);
+      return dispatch({
+        type: "AUTH_ERROR",
+      });
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
   const user = {
     email: "abam@gmail.com",
     password: "1234",
@@ -25,11 +66,47 @@ const Landingpage = ({ navigation }) => {
     setLoginForm({ ...loginForm, password });
   };
 
-  const loginButton = () => {
-    user.email == loginForm.email && user.password == loginForm.password
-      ? navigation.navigate("Home")
-      : setLoginError("flex");
-  };
+   const loginButton = async (e) => {
+     e.preventDefault();
+     try {
+        const body = JSON.stringify({
+          email: loginForm.email,
+          password: loginForm.password,
+        });
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+
+        const user = await API.post("/login", body, config);
+        const userResult = user.data.data.user;
+
+        dispatch({
+          type: "USER_LOGIN",
+          payload: userResult,
+        });
+        
+        setLoginError("none")
+        setLoginForm({
+          email: "",
+          password: "",
+        });
+        navigation.navigate("Home");
+        setAuthToken(userResult.token);
+     } catch (error) {
+        console.log(error);
+        setLoginForm({
+          email: "",
+          password: "",
+        });
+        setLoginError("flex")
+        dispatch({
+          type: "LOGIN_FAILED",
+        });
+     }
+   };
 
   return (
     <View style={styles.container}>
@@ -49,7 +126,7 @@ const Landingpage = ({ navigation }) => {
         title="email"
         placeholder="Enter Email"
         onChangeText={(e) => onChangeEmail(e)}
-        // defaultValue={loginForm.email}
+        defaultValue={loginForm.email}
       />
 
       <Text style={styles.textDefault}>Password :</Text>
@@ -58,15 +135,15 @@ const Landingpage = ({ navigation }) => {
         title="password"
         placeholder="Password"
         onChangeText={(e) => onChangePassword(e)}
-        // defaultValue={loginForm.password}
+        defaultValue={loginForm.password}
       />
 
       <View style={styles.buttonContainer}>
-        <Button title="Login" onPress={loginButton} />
+        <Button title="Login" color="#393939" onPress={loginButton} />
       </View>
 
       {/* <StatusBar style={styles.br} /> */}
-      <Text style={styles.textHeader}>
+      {/* <Text style={styles.textHeader}>
         {JSON.stringify(loginForm)}
         {user.email == loginForm.email &&
         user.password == loginForm.password ? (
@@ -74,7 +151,7 @@ const Landingpage = ({ navigation }) => {
         ) : (
           <Text>False</Text>
         )}
-      </Text>
+      </Text> */}
     </View>
   );
 };

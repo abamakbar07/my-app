@@ -1,6 +1,7 @@
-import { createContext, useReducer } from "react";
+import * as React from "react";
+import { AsyncStorage } from 'react-native'
 
-export const AppContext = createContext();
+export const AppContext = React.createContext();
 
 const initialState = {
   userBookList: null,
@@ -15,7 +16,7 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "USER_LOGIN":
-      localStorage.setItem("token", action.payload.token);
+      AsyncStorage.setItem("token", action.payload.token);
       return {
         ...state,
         loginStatus: true,
@@ -31,7 +32,7 @@ const reducer = (state, action) => {
         loading: false,
       };
     case "ADMIN_LOGIN":
-      localStorage.setItem("token", action.payload.token);
+      AsyncStorage.setItem("token", action.payload.token);
       return {
         ...state,
         loginStatus: true,
@@ -101,7 +102,7 @@ const reducer = (state, action) => {
       };
     case "AUTH_ERROR":
     case "LOGOUT":
-      localStorage.removeItem("token");
+      AsyncStorage.removeItem("token");
       return {
         ...state,
         isLogin: false,
@@ -123,8 +124,8 @@ const reducer = (state, action) => {
 };
 
 export const AppContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+  console.log(state)
   return (
     <AppContext.Provider value={[state, dispatch]}>
       {children}
