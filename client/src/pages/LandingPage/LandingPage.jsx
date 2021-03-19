@@ -23,7 +23,19 @@ const LandingPage = () => {
    const handleClose = () => {
       setLoginModal(false);
       setRegisterModal(false);
-      history.push("/dashboard")
+      if (state.registerStatus){
+        setSignupFormData({
+          email: "",
+          password: "",
+          fullname: "",
+        });
+        setLoginModal(true);
+        setRegisterModal(false);
+        history.push("/");
+      } else {
+        history.push("/")
+      }
+        
    }
 
    const loginModalDisplay = () => {
@@ -214,7 +226,7 @@ const LandingPage = () => {
            {state.loginStatus ? "Login succesfully!" : "Login Failed"}
          </Modal.Body>
          <Modal.Footer>
-           <Button variant="primary" onClick={handleClose}>
+           <Button className="globalButtonNoRound border-0" onClick={handleClose}>
              Ok
            </Button>
          </Modal.Footer>
@@ -229,7 +241,7 @@ const LandingPage = () => {
              : `Register Failed! ${state.errorMessage}`}
          </Modal.Body>
          <Modal.Footer>
-           <Button variant="primary" onClick={handleClose}>
+           <Button className="globalButtonNoRound border-0" onClick={handleClose}>
              Ok
            </Button>
          </Modal.Footer>
