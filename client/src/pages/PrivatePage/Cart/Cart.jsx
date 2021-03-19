@@ -281,12 +281,10 @@ const Cart = () => {
          </div>
        </div>
        <Modal show={transactionModal} onHide={handleClose}>
-         <Modal.Body className="text-success">Order success! Wait for admin to verification your transaction</Modal.Body>
-         <Modal.Footer>
-           <Button className="globalButton border-0" onClick={handleClose}>
-             Ok
-           </Button>
-         </Modal.Footer>
+         <Modal.Body className="text-success">
+           Thank you for ordering in us, please wait 1 x 24 hours to verify you
+           order
+         </Modal.Body>
        </Modal>
      </div>
    );
