@@ -27,6 +27,7 @@ const Home = ({ navigation }) => {
 
        setLoading(false);
      } catch (error) {
+       console.log("Error Home")
        console.log(error);
      }
    };
@@ -171,11 +172,11 @@ const Home = ({ navigation }) => {
             </View>
           )}
 
-          <ListBook />
+          {/* <ListBook /> */}
 
-          <View style={{ marginBottom: 20 }}>
+          <View style={{ marginBottom: 20, paddingTop: 100 }}>
             <Button
-              title="Logout"
+              title="List Books"
               color="#393939"
               onPress={() => {
                 navigation.navigate("Landingpage");

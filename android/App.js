@@ -14,7 +14,7 @@ function App() {
   return (
     <AppContextProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Landingpage">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Landingpage"
             component={Landingpage}
