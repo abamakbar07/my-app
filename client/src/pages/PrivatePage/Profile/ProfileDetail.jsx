@@ -163,7 +163,7 @@ const ProfileDetail = () => {
                   <ListGroup className="">
                      <img  src={loading ? "Wait..." : editProfil.profilImage === null ? profileDefault : "http://localhost:5000/profiles/"+editProfil.profilImage }
                            style={{
-                              width: "15vw",
+                              width: "100%",
                               marginLeft: "auto",
                               marginRight: "auto"
                            }} 
@@ -263,7 +263,7 @@ const ProfileDetail = () => {
                                        <img  className={preview ? "d-none" : ""}
                                              src={editProfil.profilImage === null ? profileDefault : "http://localhost:5000/profiles/"+editProfil.profilImage}
                                              style={{
-                                                width: "15vw",
+                                                width: "100%",
                                                 marginLeft: "auto",
                                                 marginRight: "auto",
                                                 filter: "brightness(75%)"
@@ -283,7 +283,7 @@ const ProfileDetail = () => {
                                     <img  className={preview ? "" : "d-none"}
                                           src={previewImage.file}
                                           style={{
-                                             width: "15vw",
+                                             width: "100%",
                                              marginLeft: "auto",
                                              marginRight: "auto",
                                              filter: "brightness(75%)"
