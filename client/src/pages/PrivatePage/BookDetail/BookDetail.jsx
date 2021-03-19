@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Card, ListGroup, Spinner } from 'react-bootstrap'
+import { Card, Carousel, ListGroup, Spinner } from 'react-bootstrap'
 import { useParams, Link } from 'react-router-dom'
 
 import { CartContext } from '../../../components/context/CartContext'
@@ -29,6 +29,7 @@ const BookDetail = () => {
    const getBook = async () => {
       try {
          setLoading(true);
+
          const book = await API.get("/book/"+id);
          const books = await API.get("/books");
          await setBookResult(book.data.data.book);
@@ -67,7 +68,11 @@ const BookDetail = () => {
          </div>
        ) : (
          <div className="BookDetail-container">
-            <Card body className="border-0 bg-transparent">
+            <Card
+               body
+               className="border-0 bg-transparent"
+               style={{ padding: "0vw 5vw" }}
+            >
                <div className="row">
                <div className="col-md-4">
                   <ListGroup>
