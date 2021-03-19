@@ -21,13 +21,14 @@ const ProfileListBooks = () => {
          ) : (
            <Row>
              {listBook.map((book) => (
-               <Col sm="4">
+               <Col sm="2">
                  <a
                    href={
                      book.idTransaction.paymentStatus === "Approve"
                        ? "http://localhost:5000/books/" + book.idBook.bookFile
                        : ""
                    }
+                  style={{pointerEvents: book.idTransaction.paymentStatus === "Approve" ? "" : "none"}}
                  >
                    {/* <Card onClick={() => getbook(bookList.id)} className=" bg-transparent border-0"> */}
                    <Card className=" bg-transparent border-0">
@@ -37,7 +38,7 @@ const ProfileListBooks = () => {
                          "http://localhost:5000/books/" +
                          book.idBook.bookThumbnail
                        }
-                       style={{ width: "10vw", height: "30vh" }}
+                       style={{ width: "100%", height: "30vh" }}
                      />
                      <Card.Body className="text-left p-0 pt-2">
                        <Card.Title className="ListBooks-title">
@@ -49,13 +50,14 @@ const ProfileListBooks = () => {
                        <Button
                          className={
                            book.idTransaction.paymentStatus === "Pending"
-                             ? "disabled"
-                             : ""
+                             ? "disabled globalButton border-0"
+                             : book.idTransaction.paymentStatus === "Cancel" ? "disabled btn-danger" : "globalButton border-0"
                          }
+                         style={{width: "100%"}}
                        >
                          {book.idTransaction.paymentStatus === "Pending"
                            ? "Transaction on process"
-                           : "Download"}
+                           : book.idTransaction.paymentStatus === "Cancel" ? "Transaction failed" : "Download"}
                        </Button>
                      </Card.Body>
                    </Card>
