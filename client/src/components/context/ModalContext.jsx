@@ -3,9 +3,10 @@ import { createContext, useReducer } from "react";
 export const ModalContext = createContext();
 
 const initialState = {
-   modalLogin: false,
-   modalRegister: false,
-   loading: true,
+  modalLogin: false,
+  modalRegister: false,
+  modalTransaction: false,
+  loading: true,
 };
 
 const reducer = (state, action) => {
@@ -24,11 +25,18 @@ const reducer = (state, action) => {
         modalRegister: true,
         loading: false,
       };
+      case "TRANSACTION_MODAL": 
+      return {
+        ...state,
+        modalTransaction: true,
+        loading: false,
+      }
     case "CLOSE_MODAL":
       return {
         ...state,
         modalLogin: false,
         modalRegister: false,
+        modalTransaction: false,
         loading: false,
       };
     default:

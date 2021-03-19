@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Card, Col, Form, Row, Button } from 'react-bootstrap';
+import { Card, Col, Form, Row, Button, Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { CartContext } from '../../../components/context/CartContext';
 import { AppContext } from '../../../components/context/GlobalContext';
@@ -9,9 +9,10 @@ import iconTransaction from '../../../assets/uploadTransaction.png'
 
 const Cart = () => {
    const history = useHistory()
-   const [state, dispatch] = useContext(AppContext)
+   const [state] = useContext(AppContext)
    const [stateCart, dispatchCart] = useContext(CartContext);
    const { carts } = stateCart;
+   const [transactionModal, setTransactionModal] = useState(false);
 
    const [preview, setPreview] = useState(false)
    const [previewImage, setPreviewImage] = useState({
@@ -108,12 +109,21 @@ const Cart = () => {
             paymentStatus: "Pending",
          })
 
-         history.push("/")
+         dispatchCart({
+            type: "CLEAR_CART",
+         })
+
+         setTransactionModal(true);
          
       } catch (error) {
          console.log(error)
       }
    }
+
+   const handleClose = () => {
+     setTransactionModal(false);
+     history.push("/");
+   };
 
    const removeProductFromCart = (id) => {
       dispatchCart({
@@ -125,139 +135,161 @@ const Cart = () => {
    };
    
    return (
-      <div>
-         <div className="container pt-5">
+     <div>
+       <div className="container pt-5">
+         <div className="row container pt-5">
+           <h1 className="col-sm-12 text-left">Cart</h1>
+           <Col md="8">
+             <Card className="border-0 text-left bg-transparent">
+               <div className="pt-4">
+                 <h5>Preview your order</h5>
+               </div>
 
-            <div className="row container pt-5">
-               <h1 className="col-sm-12 text-left">Cart</h1>
-               <Col md="8">
-                  <Card className="border-0 text-left bg-transparent">
-                     <div className="pt-4">
-                        <h5>Preview your order</h5>
-                     </div>
+               <div className="border-top border-bottom mb-3 pt-3">
+                 {carts.length > 0 ? (
+                   carts.map((product) => (
+                     <Card.Body>
+                       <Row className="container">
+                         <Col sm="4">
+                           <img
+                             alt=""
+                             src={
+                               "http://localhost:5000/books/" +
+                               product.bookThumbnail
+                             }
+                             style={{
+                               width: "10vw",
+                               height: "auto",
+                             }}
+                           />
+                         </Col>
+                         <Col sm="6">
+                           <Card.Title>{product.title}</Card.Title>
+                           <Card.Text className="text-muted">
+                             {"By. " + product.author}
+                           </Card.Text>
+                           <Card.Text className="text-success font-weight-bold">
+                             {"Rp. " + product.price}
+                           </Card.Text>
+                         </Col>
+                         <Col sm="2" className="text-right">
+                           <a
+                             className="text-danger font-weight-bold border"
+                             onClick={() => removeProductFromCart(product.id)}
+                             style={{
+                               borderColor: "red",
+                             }}
+                           >
+                             X
+                           </a>
+                         </Col>
+                       </Row>
+                     </Card.Body>
+                   ))
+                 ) : (
+                   <h1>Your Cart is Empty</h1>
+                 )}
+               </div>
+             </Card>
+           </Col>
 
-                     <div className="border-top border-bottom mb-3 pt-3">
-                        {carts.length > 0 ? (
-                           carts.map((product) => (
-                              <Card.Body>
-                                 <Row className="container">
-                                    <Col sm="4">
-                                       <img  alt=""
-                                             src={"http://localhost:5000/books/"+product.bookThumbnail}
-                                             style={{
-                                                width: "10vw",
-                                                height: "auto"
-                                             }}
-                                          />
-                                    </Col>
-                                    <Col sm="6">
-                                       <Card.Title>
-                                          {product.title}
-                                       </Card.Title>
-                                       <Card.Text className="text-muted">
-                                          {"By. "+product.author}
-                                       </Card.Text>
-                                       <Card.Text className="text-success font-weight-bold">
-                                          {"Rp. "+product.price}
-                                       </Card.Text>
-                                    </Col>
-                                    <Col sm="2" className="text-right">
-                                       <a className="text-danger font-weight-bold border" 
-                                          onClick={() => removeProductFromCart(product.id)}
-                                          style={{
-                                             borderColor: "red"
-                                             }}
-                                          >
-                                          X
-                                       </a>
-                                    </Col>
-                                 </Row>
-                              </Card.Body>
-                           ))
-                        ) : (
-                        <h1>Your Cart is Empty</h1>
-                        )}
-                     </div>
-                  </Card>
-               </Col>
+           <Col md="4">
+             <Card className="border-0 bg-transparent">
+               <Card.Body className="border-bottom pb-5"></Card.Body>
+               <Row className="pr-1 pl-1 pt-1">
+                 <Col sm="4" className="text-left">
+                   Subtotal
+                 </Col>
+                 <Col sm="8" className="text-right">
+                   {totalPrice}
+                 </Col>
+               </Row>
+               <Row className="pr-1 pl-1">
+                 <Col sm="4" className="text-left">
+                   Qty
+                 </Col>
+                 <Col sm="8" className="text-right pb-1">
+                   {carts.length}
+                 </Col>
+               </Row>
+               <Row className="text-center">
+                 <Col className="border"></Col>
+               </Row>
+               <Row className="pr-1 pl-1 text-success font-weight-bold">
+                 <Col sm="4" className="text-left">
+                   Total
+                 </Col>
+                 <Col sm="8" className="text-right pb-1">
+                   {totalPrice}
+                 </Col>
+               </Row>
 
-               <Col md="4">
-                  <Card className="border-0 bg-transparent">
-                     <Card.Body className="border-bottom pb-5"></Card.Body>
-                        <Row className="pr-1 pl-1 pt-1">
-                           <Col sm="4" className="text-left">
-                              Subtotal
-                           </Col>
-                           <Col sm="8" className="text-right">
-                              {totalPrice}
-                           </Col>
-                        </Row>
-                        <Row className="pr-1 pl-1">
-                           <Col sm="4" className="text-left">
-                              Qty
-                           </Col>
-                           <Col sm="8" className="text-right pb-1">
-                              {carts.length}
-                           </Col>
-                        </Row>
-                        <Row className="text-center">
-                           <Col className="border"></Col>
-                        </Row>
-                        <Row className="pr-1 pl-1 text-success font-weight-bold">
-                           <Col sm="4" className="text-left">
-                              Total
-                           </Col>
-                           <Col sm="8" className="text-right pb-1">
-                              {totalPrice}
-                           </Col>
-                        </Row>
+               <Row className="pt-5">
+                 <Col sm="2"></Col>
+                 <Col sm="10">
+                   <Form onSubmit={(e) => onSubmit(e)}>
+                     <Form.Group>
+                       <div className="">
+                         <label for="transferProof" className="">
+                           <h5>Upload bukti transfer</h5>
+                           <div className="">
+                             <img
+                               className={preview ? "d-none" : ""}
+                               src={iconTransaction}
+                               style={{
+                                 width: "20vw",
+                               }}
+                             />
+                             <img
+                               className={preview ? "" : "d-none"}
+                               src={previewImage.file}
+                               style={{
+                                 height: "25vh",
+                                 paddingBottom: "10px",
+                                 filter: "brightness(75%)",
+                               }}
+                             />
+                           </div>
+                         </label>
+                         {/* <input onChange={(e) => onChange(e)} name="bookFile" id="bookFile" type="file" style={{display:"none"}} /> */}
+                         <input
+                           onChange={(e) => onChange(e)}
+                           name="transferProof"
+                           id="transferProof"
+                           type="file"
+                           style={{ display: "none" }}
+                         />
+                       </div>
 
-                        <Row className="pt-5">
-                           <Col sm="2">
-
-                           </Col>
-                           <Col sm="10">
-                              <Form onSubmit={(e) => onSubmit(e)}>
-                                 <Form.Group>
-                                    <div className="">
-                                       <label for="transferProof" className="">
-                                          <h5>Upload bukti transfer</h5>
-                                          <div className="">
-                                             <img  className={preview ? "d-none" : ""} 
-                                                   src={iconTransaction} 
-                                                   style={{
-                                                      width: "20vw"
-                                                      }}
-                                                   />
-                                             <img  className={preview ? "" : "d-none"}
-                                                   src={previewImage.file}
-                                                   style={{
-                                                      height: "25vh",
-                                                      paddingBottom: "10px",
-                                                      filter: "brightness(75%)"
-                                                      }}
-                                                   />
-                                          </div>
-                                       </label>
-                                       {/* <input onChange={(e) => onChange(e)} name="bookFile" id="bookFile" type="file" style={{display:"none"}} /> */}
-                                       <input onChange={(e) => onChange(e)} name="transferProof" id="transferProof" type="file" style={{display: "none"}} />
-                                    </div>
-
-                                    {/* <Form.Control className="d-none" name="paymentTotal" type="text" value={totalPrice} /> */}
-                                    {/* <Form.Control className="d-none" name="qty" type="text" value={carts.length} /> */}
-                                    {/* <Form.Control className="d-none" name="productPurchased" type="text" value={purchasedProduct} /> */}
-                                    <Button block onSubmit={(e) => onSubmit(e)} type="submit" className="globalButton border-0">Pay</Button>
-                                 </Form.Group>
-                              </Form>
-                           </Col>
-                        </Row>
-                  </Card>
-               </Col>
-            </div>
-
+                       {/* <Form.Control className="d-none" name="paymentTotal" type="text" value={totalPrice} /> */}
+                       {/* <Form.Control className="d-none" name="qty" type="text" value={carts.length} /> */}
+                       {/* <Form.Control className="d-none" name="productPurchased" type="text" value={purchasedProduct} /> */}
+                       <Button
+                         block
+                         onSubmit={(e) => onSubmit(e)}
+                         type="submit"
+                         className="globalButton border-0"
+                       >
+                         Pay
+                       </Button>
+                     </Form.Group>
+                   </Form>
+                 </Col>
+               </Row>
+             </Card>
+           </Col>
          </div>
-      </div>
-   )
+       </div>
+       <Modal show={transactionModal} onHide={handleClose}>
+         <Modal.Body className="text-success">Order success! Wait for admin to verification your transaction</Modal.Body>
+         <Modal.Footer>
+           <Button className="globalButton border-0" onClick={handleClose}>
+             Ok
+           </Button>
+         </Modal.Footer>
+       </Modal>
+     </div>
+   );
 }
 
 export default Cart
