@@ -79,7 +79,7 @@ const NavigationBar = (props) => {
      <div className="navBar">
        <Navbar className="justify-content-between bg-transparent pt-3">
          <div className="ml-5">
-           <Link to={isAdmin ? "/admin/transaction" : "/"}>
+           <Link to={isAdmin ? "/admin/transaction" : "/dashboard"}>
              <img
                alt=""
                src={logo}
